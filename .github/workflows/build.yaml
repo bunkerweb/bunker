@@ -27,7 +27,7 @@ jobs:
       - name: Push to build branch
         run: |
           git checkout -b build
-          git add -f .dist
+          git add -f ./dist
           git commit -m "Build"
           git push origin build
 
