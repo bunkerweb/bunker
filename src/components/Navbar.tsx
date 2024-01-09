@@ -2,7 +2,9 @@ import { Home, LayoutGrid, LogOut, Settings } from 'lucide-react'
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip'
 import { useLocation, useNavigate } from 'react-router-dom'
-export default function Navbar() {
+import { useEffect } from 'react'
+import { Plugin } from '@/lib/pluginloader'
+export default function Navbar({ loadedPlugins }: { loadedPlugins: Plugin[] }) {
   const items = [
     {
       icon: <Home className="group-active:scale-90 transition-all duration-300 text-2xl" />,
@@ -22,6 +24,13 @@ export default function Navbar() {
       position: 'top'
     }
   ]
+
+  useEffect(() => {
+    loadedPlugins.forEach((plugin) => {
+      if (plugin.page && plugin.icon) {
+      }
+    })
+  }, [loadedPlugins])
   const location = useLocation()
   const navigate = useNavigate()
   return (

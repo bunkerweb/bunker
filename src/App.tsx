@@ -29,7 +29,7 @@ export default function App() {
   return (
     <div className="flex bg-zinc-900">
       <BrowserRouter>
-        <Navbar />
+        <Navbar loadedPlugins={loadedPlugins} />
         <Toaster position="top-right" />
         <div className="w-[calc(100vw-4rem)] absolute right-0 top-0 h-screen">
           <Routes>

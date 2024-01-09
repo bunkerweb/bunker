@@ -6,6 +6,7 @@ import EventEmitter from 'events'
 import iFramer from '@/internal/iFramer'
 import Status from '@/internal/Status'
 import HackerNews from '@/internal/HackerNews'
+import { LucideIcon } from 'lucide-react'
 
 store.set('savedPlugins', [], false)
 store.set('disabledPlugins', [], false)
@@ -15,6 +16,7 @@ export interface Plugin {
   id: string
   disabled?: boolean
   description?: string
+  icon?: LucideIcon
 
   navPosition?: 'top' | 'bottom'
   tile?: () => React.ReactElement
