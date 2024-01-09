@@ -26,6 +26,8 @@ jobs:
 
       - name: Push to build branch
         run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
           git checkout -b build
           git add -f ./dist
           git commit -m "Build"
