@@ -3,15 +3,35 @@ import { Switch } from '@/components/ui/switch'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { Plugin, togglePluginDisable } from '@/lib/pluginloader'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 export default function Plugins({ loadedPlugins, setLoadedPlugins }: { loadedPlugins: Plugin[]; setLoadedPlugins: Dispatch<SetStateAction<Plugin[]>> }) {
+  const [pluginUrl, setPluginUrl] = useState('')
+  function uploadPlugin() {}
   return (
-    <div className="flex flex-col items-center w-full pt-16">
+    <div className="flex flex-col items-center w-full pt-16 space-y-8">
       <h1 className="font-bold text-5xl">Plugins</h1>
 
-      <div className="flex flex-wrap justify-center gap-4 mt-8">
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button>Add Plugin</Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Add plugin</DialogTitle>
+            <DialogDescription>Enter a valid plugin url down below. Make sure you trust the plugin's source, as they could be malicious.</DialogDescription>
+          </DialogHeader>
+          <Input value={pluginUrl} onInput={(e) => setPluginUrl((e.target as HTMLInputElement).value)} placeholder="Plugin URL" />
+          <DialogFooter>
+            <Button type="submit">Add</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <div className="flex flex-wrap justify-center gap-4">
         {loadedPlugins.map((plugin, index) => {
           function handleDisable() {
             const disabled = togglePluginDisable(plugin.id)
@@ -19,7 +39,7 @@ export default function Plugins({ loadedPlugins, setLoadedPlugins }: { loadedPlu
           }
 
           return (
-            <Card key={index} className="w-80">
+            <Card key={index} className={`w-80 -z-[${index}]`}>
               <CardHeader>
                 <CardTitle>
                   {plugin.name}

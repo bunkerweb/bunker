@@ -3,7 +3,7 @@ import { ReactElement, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 export default function PluginRouter({ loadedPlugins }: { loadedPlugins: Plugin[] }) {
-  const [selectedPlugin, setSelectedPlugin] = useState<ReactElement>(<p>Loading...</p>)
+  const [selectedPlugin, setSelectedPlugin] = useState<ReactElement>()
   const { plugin } = useParams()
 
   useEffect(() => {

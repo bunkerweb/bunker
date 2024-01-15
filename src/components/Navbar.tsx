@@ -2,10 +2,10 @@ import { Home, LayoutGrid, LogOut, Settings } from 'lucide-react'
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Plugin } from '@/lib/pluginloader'
 export default function Navbar({ loadedPlugins }: { loadedPlugins: Plugin[] }) {
-  const items = [
+  const [navItems, setNavItems] = useState([
     {
       icon: <Home className="group-active:scale-90 transition-all duration-300 text-2xl" />,
       tooltip: 'Home',
@@ -23,22 +23,32 @@ export default function Navbar({ loadedPlugins }: { loadedPlugins: Plugin[] }) {
       href: '/plugins',
       position: 'top'
     }
-  ]
+  ])
 
-  useEffect(() => {
-    loadedPlugins.forEach((plugin) => {
-      if (plugin.page && plugin.icon) {
-      }
-    })
-  }, [loadedPlugins])
+  // useEffect(() => {
+  //   loadedPlugins.forEach((plugin) => {
+  //     if (!plugin.page) return
+  //     if (plugin.icon == undefined) return
+  //     setNavItems((prev) => [
+  //       ...prev,
+  //       {
+  //         // @ts-ignore
+  //         icon: <plugin.icon className="bx bx-user group-active:scale-90 transition-all duration-300 text-2xl" />,
+  //         tooltip: plugin.name,
+  //         href: `/plugin/${plugin.id}`,
+  //         position: 'top'
+  //       }
+  //     ])
+  //   })
+  // }, [loadedPlugins])
   const location = useLocation()
   const navigate = useNavigate()
   return (
     <TooltipProvider>
-      <div className="w-16 h-screen bg-zinc-800 flex flex-col justify-between fixed left-0 top-0">
+      <div className="w-16 h-screen bg-zinc-800 flex flex-col justify-between fixed left-0 top-0 z-[999]">
         <div>
           <div className="font-extrabold text-3xl bg-zinc-700 hover:bg-sky-600 transition-colors duration-150 aspect-square m-3 rounded-lg flex items-center justify-center cursor-pointer">B</div>
-          {items.map((item, index) => {
+          {navItems.map((item, index) => {
             return (
               <Tooltip key={index} delayDuration={0}>
                 <TooltipTrigger asChild>
@@ -53,6 +63,26 @@ export default function Navbar({ loadedPlugins }: { loadedPlugins: Plugin[] }) {
                 </TooltipTrigger>
                 <TooltipContent side="right">
                   <p>{item.tooltip}</p>
+                </TooltipContent>
+              </Tooltip>
+            )
+          })}
+          {loadedPlugins.map((item, i) => {
+            if (!item.page || !item.icon || item.disabled) return
+            return (
+              <Tooltip key={i} delayDuration={0}>
+                <TooltipTrigger asChild>
+                  <div
+                    onClick={() => {
+                      navigate(`/plugin/${item.id}`)
+                    }}
+                    className={`font-bold hover:bg-zinc-700 ${location.pathname == `/plugin/${item.id}` && 'bg-zinc-600'} transition-colors duration-150 aspect-square flex items-center justify-center cursor-pointer group`}
+                  >
+                    <item.icon />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent side="right" className="z-[9999] relative">
+                  <p>{item.name}</p>
                 </TooltipContent>
               </Tooltip>
             )

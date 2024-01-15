@@ -2,11 +2,7 @@ import React from 'react'
 import store from 'store2'
 import { toast } from 'sonner'
 import EventEmitter from 'events'
-
-import iFramer from '@/internal/iFramer'
-import Status from '@/internal/Status'
-import HackerNews from '@/internal/HackerNews'
-import { LucideIcon } from 'lucide-react'
+import { Book, LucideIcon } from 'lucide-react'
 
 store.set('savedPlugins', [], false)
 store.set('disabledPlugins', [], false)
@@ -60,10 +56,14 @@ export function togglePluginDisable(id: string) {
   return selectedPlugin.disabled
 }
 
+import iFramer from '@/internal/iFramer'
+import Status from '@/internal/Status'
+import Bookmarklets from '@/internal/Bookmarklets'
+
 export function registerDefaultPlugins() {
   registerPlugin(Status)
   registerPlugin(iFramer)
-  registerPlugin(HackerNews)
+  registerPlugin(Bookmarklets)
 }
 
 getSavedPlugins().forEach(async (url) => {
