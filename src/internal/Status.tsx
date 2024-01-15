@@ -8,15 +8,21 @@ const Status: Plugin = {
   tile() {
     return (
       <div>
-        <p>Hidden from extensions: <span className="text-green-500 font-semibold">Active</span> </p>
-        <p>Bare server: <span className="text-red-500 font-semibold">Not Connected</span></p>
-        <p>Version: <span className="text-orange-500 font-semibold">0.1 (dev)</span></p>
+        <p>
+          Hidden from extensions: <span className="text-green-500 font-semibold">Active</span>
+        </p>
+        <p>
+          Bare server: <span className="text-red-500 font-semibold">Not Connected</span>
+        </p>
+        <p>
+          Version: <span className="text-orange-500 font-semibold">0.1 (dev)</span>
+        </p>
       </div>
     )
   },
-
-  page() {
-    return <p>hi</p>
+  
+  onReady() {
+    console.log("ready")
   }
 }
 

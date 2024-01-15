@@ -13,5 +13,5 @@ export default function PluginRouter({ loadedPlugins }: { loadedPlugins: Plugin[
 
     setSelectedPlugin(foundPlugin.page)
   }, [loadedPlugins])
-  return <div className="h-screen w-[calc(100vw-4rem)]">{selectedPlugin}</div>
+  return <div className="h-screen w-[calc(100vw-4rem)] overflow-auto">{selectedPlugin}</div>
 }

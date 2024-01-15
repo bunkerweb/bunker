@@ -4,13 +4,14 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { Plugin, togglePluginDisable } from '@/lib/pluginloader'
 import { Dispatch, SetStateAction, useState } from 'react'
 
 export default function Plugins({ loadedPlugins, setLoadedPlugins }: { loadedPlugins: Plugin[]; setLoadedPlugins: Dispatch<SetStateAction<Plugin[]>> }) {
   const [pluginUrl, setPluginUrl] = useState('')
-  function uploadPlugin() {}
+  function uploadPlugin() {
+    console.log("uploading ", pluginUrl)
+  }
   return (
     <div className="flex flex-col items-center w-full pt-16 space-y-8">
       <h1 className="font-bold text-5xl">Plugins</h1>
@@ -26,7 +27,7 @@ export default function Plugins({ loadedPlugins, setLoadedPlugins }: { loadedPlu
           </DialogHeader>
           <Input value={pluginUrl} onInput={(e) => setPluginUrl((e.target as HTMLInputElement).value)} placeholder="Plugin URL" />
           <DialogFooter>
-            <Button type="submit">Add</Button>
+            <Button type="submit" onClick={uploadPlugin}>Add</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

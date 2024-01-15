@@ -9,7 +9,7 @@ const Bookmarklets: Plugin = {
 
 
   page() {
-    return <p>hi</p>
+    return <p className="w-screen">hi</p>
   }
 }
 

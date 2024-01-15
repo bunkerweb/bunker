@@ -17,10 +17,19 @@ export interface Plugin {
   navPosition?: 'top' | 'bottom'
   tile?: () => React.ReactElement
   page?: () => React.ReactElement
+
+  onReady?: () => void
 }
 
 export const plugins: Plugin[] = []
 export const pluginEventEmitter = new EventEmitter()
+
+export function readyEvent() {
+  plugins.forEach((plugin) => {
+    if (!plugin.onReady) return;
+    plugin.onReady()
+  })
+}
 
 function internalUpdate() {
   store('disabledPlugins').forEach((id: string) => {
@@ -81,6 +90,7 @@ export function registerPlugin(plugin: Plugin): Plugin | undefined | void {
   }
 
   plugins.push(plugin)
+  if (plugin.onReady) plugin.onReady()
   pluginEventEmitter.emit('pluginUpdate', plugin)
   internalUpdate()
 

@@ -2,10 +2,9 @@ import { Home, LayoutGrid, LogOut, Settings } from 'lucide-react'
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import { Plugin } from '@/lib/pluginloader'
 export default function Navbar({ loadedPlugins }: { loadedPlugins: Plugin[] }) {
-  const [navItems, setNavItems] = useState([
+  const navItems = [
     {
       icon: <Home className="group-active:scale-90 transition-all duration-300 text-2xl" />,
       tooltip: 'Home',
@@ -23,24 +22,7 @@ export default function Navbar({ loadedPlugins }: { loadedPlugins: Plugin[] }) {
       href: '/plugins',
       position: 'top'
     }
-  ])
-
-  // useEffect(() => {
-  //   loadedPlugins.forEach((plugin) => {
-  //     if (!plugin.page) return
-  //     if (plugin.icon == undefined) return
-  //     setNavItems((prev) => [
-  //       ...prev,
-  //       {
-  //         // @ts-ignore
-  //         icon: <plugin.icon className="bx bx-user group-active:scale-90 transition-all duration-300 text-2xl" />,
-  //         tooltip: plugin.name,
-  //         href: `/plugin/${plugin.id}`,
-  //         position: 'top'
-  //       }
-  //     ])
-  //   })
-  // }, [loadedPlugins])
+  ]
   const location = useLocation()
   const navigate = useNavigate()
   return (
@@ -68,7 +50,7 @@ export default function Navbar({ loadedPlugins }: { loadedPlugins: Plugin[] }) {
             )
           })}
           {loadedPlugins.map((item, i) => {
-            if (!item.page || !item.icon || item.disabled) return
+            if (!item.page || !item.icon) return
             return (
               <Tooltip key={i} delayDuration={0}>
                 <TooltipTrigger asChild>
@@ -81,7 +63,7 @@ export default function Navbar({ loadedPlugins }: { loadedPlugins: Plugin[] }) {
                     <item.icon />
                   </div>
                 </TooltipTrigger>
-                <TooltipContent side="right" className="z-[9999] relative">
+                <TooltipContent side="right" >
                   <p>{item.name}</p>
                 </TooltipContent>
               </Tooltip>
