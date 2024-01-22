@@ -1,8 +1,10 @@
-import { Plugin } from '@/lib/pluginloader'
+import { $plugins } from '@/lib/pluginloader'
+import { useStore } from '@nanostores/react'
 import { ReactElement, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-export default function PluginRouter({ loadedPlugins }: { loadedPlugins: Plugin[] }) {
+export default function PluginRouter() {
+  const loadedPlugins = useStore($plugins)
   const [selectedPlugin, setSelectedPlugin] = useState<ReactElement>()
   const { plugin } = useParams()
 

@@ -2,8 +2,10 @@ import { Home, LayoutGrid, LogOut, Settings } from 'lucide-react'
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Plugin } from '@/lib/pluginloader'
-export default function Navbar({ loadedPlugins }: { loadedPlugins: Plugin[] }) {
+import { $plugins } from '@/lib/pluginloader'
+import { useStore } from '@nanostores/react'
+export default function Navbar() {
+  const loadedPlugins = useStore($plugins)
   const navItems = [
     {
       icon: <Home className="group-active:scale-90 transition-all duration-300 text-2xl" />,

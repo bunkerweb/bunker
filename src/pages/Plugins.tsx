@@ -4,13 +4,15 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 
 import { Input } from '@/components/ui/input'
-import { Plugin, togglePluginDisable } from '@/lib/pluginloader'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { $plugins, togglePluginDisable } from '@/lib/pluginloader'
+import { useState } from 'react'
+import { useStore } from '@nanostores/react'
 
-export default function Plugins({ loadedPlugins, setLoadedPlugins }: { loadedPlugins: Plugin[]; setLoadedPlugins: Dispatch<SetStateAction<Plugin[]>> }) {
+export default function Plugins() {
   const [pluginUrl, setPluginUrl] = useState('')
+  const plugins = useStore($plugins)
   function uploadPlugin() {
-    console.log("uploading ", pluginUrl)
+    console.log('uploading ', pluginUrl)
   }
   return (
     <div className="flex flex-col items-center w-full pt-16 space-y-8">
@@ -27,20 +29,21 @@ export default function Plugins({ loadedPlugins, setLoadedPlugins }: { loadedPlu
           </DialogHeader>
           <Input value={pluginUrl} onInput={(e) => setPluginUrl((e.target as HTMLInputElement).value)} placeholder="Plugin URL" />
           <DialogFooter>
-            <Button type="submit" onClick={uploadPlugin}>Add</Button>
+            <Button type="submit" onClick={uploadPlugin}>
+              Add
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
       <div className="flex flex-wrap justify-center gap-4">
-        {loadedPlugins.map((plugin, index) => {
+        {plugins.map((plugin, index) => {
           function handleDisable() {
-            const disabled = togglePluginDisable(plugin.id)
-            setLoadedPlugins((prev) => prev.map((el) => (el.id == plugin.id ? { ...el, disabled: disabled } : el)))
+            togglePluginDisable(plugin.id)
           }
 
           return (
-            <Card key={index} className={`w-80 -z-[${index}]`}>
+            <Card key={index} className={`w-80`}>
               <CardHeader>
                 <CardTitle>
                   {plugin.name}

@@ -1,8 +1,8 @@
 import React from 'react'
 import store from 'store2'
 import { toast } from 'sonner'
-import EventEmitter from 'events'
-import { Book, LucideIcon } from 'lucide-react'
+import { LucideIcon } from 'lucide-react'
+import { atom } from 'nanostores'
 
 store.set('savedPlugins', [], false)
 store.set('disabledPlugins', [], false)
@@ -21,18 +21,18 @@ export interface Plugin {
   onReady?: () => void
 }
 
-export const plugins: Plugin[] = []
-export const pluginEventEmitter = new EventEmitter()
+export const $plugins = atom<Plugin[]>([])
 
 export function readyEvent() {
-  plugins.forEach((plugin) => {
-    if (!plugin.onReady) return;
+  $plugins.get().forEach((plugin) => {
+    if (!plugin.onReady) return
     plugin.onReady()
   })
 }
 
 function internalUpdate() {
   store('disabledPlugins').forEach((id: string) => {
+    const plugins = $plugins.get()
     const index = plugins.findIndex((plugin) => plugin.id == id)
     const selectedPlugin = plugins[index]
     if (!selectedPlugin) return
@@ -46,11 +46,22 @@ function getSavedPlugins() {
 }
 
 export function togglePluginDisable(id: string) {
-  const index = plugins.findIndex((plugin) => plugin.id == id)
-  const selectedPlugin = plugins[index]
-  if (!selectedPlugin) return
+  const plugins = $plugins.get();
 
-  selectedPlugin.disabled = !selectedPlugin.disabled
+  // Create a new array with the disabled property toggled for the matching id
+  const updatedPlugins = plugins.map(item => {
+    if (item.id === id) {
+      // Toggle the disabled property
+      return { ...item, disabled: !item.disabled };
+    } else {
+      // Return the original item
+      return item;
+    }
+  });
+
+  // Update the store with the new array
+  $plugins.set(updatedPlugins);
+  
 
   if (store('disabledPlugins').includes(id)) {
     var updated = store('disabledPlugins').filter(() => !store('disabledPlugins').includes(id))
@@ -60,9 +71,8 @@ export function togglePluginDisable(id: string) {
     store('disabledPlugins', [...store('disabledPlugins'), id])
   }
 
-  pluginEventEmitter.emit('pluginUpdate')
   internalUpdate()
-  return selectedPlugin.disabled
+  return
 }
 
 import iFramer from '@/internal/iFramer'
@@ -83,15 +93,17 @@ getSavedPlugins().forEach(async (url) => {
 
 export function registerPlugin(plugin: Plugin): Plugin | undefined | void {
   if (!plugin) return
+  const plugins = $plugins.get()
 
   if (plugins.find((existingPlugin) => existingPlugin.id == plugin.id)) {
     toast.error(`An error occured while registering ${plugin.id} - plugin identifier already taken.`)
     return
   }
 
-  plugins.push(plugin)
+  $plugins.set([...$plugins.get(), plugin])
+  console.log(plugin)
+
   if (plugin.onReady) plugin.onReady()
-  pluginEventEmitter.emit('pluginUpdate', plugin)
   internalUpdate()
 
   return plugin
