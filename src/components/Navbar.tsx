@@ -52,7 +52,7 @@ export default function Navbar() {
             )
           })}
           {loadedPlugins.map((item, i) => {
-            if (!item.page || !item.icon) return
+            if (!item.page || !item.icon || item.disabled) return
             return (
               <Tooltip key={i} delayDuration={0}>
                 <TooltipTrigger asChild>

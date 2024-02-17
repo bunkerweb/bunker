@@ -3,10 +3,9 @@ import { Star } from 'lucide-react'
 
 const Bookmarklets: Plugin = {
   name: 'Bookmarklets',
-  id: 'bunker.bookmarklets',
+  id: 'example.bookmarklets',
   description: 'Store your bookmarklets in a convienent location',
   icon: Star,
-
 
   page() {
     return <p className="w-screen">hi</p>

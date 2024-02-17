@@ -46,22 +46,17 @@ function getSavedPlugins() {
 }
 
 export function togglePluginDisable(id: string) {
-  const plugins = $plugins.get();
+  const plugins = $plugins.get()
 
-  // Create a new array with the disabled property toggled for the matching id
-  const updatedPlugins = plugins.map(item => {
+  const updatedPlugins = plugins.map((item) => {
     if (item.id === id) {
-      // Toggle the disabled property
-      return { ...item, disabled: !item.disabled };
+      return { ...item, disabled: !item.disabled }
     } else {
-      // Return the original item
-      return item;
+      return item
     }
-  });
+  })
 
-  // Update the store with the new array
-  $plugins.set(updatedPlugins);
-  
+  $plugins.set(updatedPlugins)
 
   if (store('disabledPlugins').includes(id)) {
     var updated = store('disabledPlugins').filter(() => !store('disabledPlugins').includes(id))
