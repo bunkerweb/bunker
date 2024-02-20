@@ -4,15 +4,24 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 
 import { Input } from '@/components/ui/input'
-import { $plugins, togglePluginDisable } from '@/lib/pluginloader'
+import { $plugins, fetchExternalPlugin, togglePluginDisable } from '@/lib/pluginloader'
 import { useState } from 'react'
 import { useStore } from '@nanostores/react'
+import { Badge } from '@/components/ui/badge'
+import { AlertCircle, CheckCircle } from 'lucide-react'
+import { toast } from 'sonner'
 
 export default function Plugins() {
   const [pluginUrl, setPluginUrl] = useState('')
   const plugins = useStore($plugins)
-  function uploadPlugin() {
-    console.log('uploading ', pluginUrl)
+  async function uploadPlugin() {
+    try {
+      new URL(pluginUrl)
+      const plugin = await fetchExternalPlugin(pluginUrl)
+      if (!plugin || !plugin.id) toast.error('Invalid plugin URL provided.')
+    } catch (e) {
+      toast.error('Invalid plugin URL')
+    }
   }
   return (
     <div className="flex flex-col items-center w-full pt-16 space-y-8">
@@ -25,7 +34,18 @@ export default function Plugins() {
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Add plugin</DialogTitle>
-            <DialogDescription>Enter a valid plugin url down below. Make sure you trust the plugin's source, as they could be malicious.</DialogDescription>
+            <DialogDescription>
+              Enter a valid plugin url down below. Make sure you trust the plugin's source, as they could be malicious.
+              {pluginUrl.startsWith('https://raw.githubusercontent.com/cafe-labs/bunker-plugins') ? (
+                <Badge variant="default" className="mt-2 bg-green-400 hover:bg-green-400">
+                  <CheckCircle className="h-4 w-4 mr-1.5" /> Verified
+                </Badge>
+              ) : pluginUrl ? (
+                <Badge variant="default" className="mt-2 bg-red-400 hover:bg-red-400">
+                  <AlertCircle className="h-4 w-4 mr-1.5" /> Unverified
+                </Badge>
+              ) : null}
+            </DialogDescription>
           </DialogHeader>
           <Input value={pluginUrl} onInput={(e) => setPluginUrl((e.target as HTMLInputElement).value)} placeholder="Plugin URL" />
           <DialogFooter>
