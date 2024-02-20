@@ -31,14 +31,14 @@ export function readyEvent() {
 }
 
 function internalUpdate() {
-  store('disabledPlugins').forEach((id: string) => {
-    const plugins = $plugins.get()
-    const index = plugins.findIndex((plugin) => plugin.id == id)
-    const selectedPlugin = plugins[index]
-    if (!selectedPlugin) return
+  // store('disabledPlugins').forEach((id: string) => {
+  //   const plugins = $plugins.get()
+  //   const index = plugins.findIndex((plugin) => plugin.id == id)
+  //   const selectedPlugin = plugins[index]
+  //   if (!selectedPlugin) return
 
-    selectedPlugin.disabled = true
-  })
+  //   selectedPlugin.disabled = true
+  // })
 }
 
 function getSavedPlugins() {
