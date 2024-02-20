@@ -13,7 +13,6 @@ window.document.documentElement.classList.add('dark')
 export default function App() {
   useEffect(() => {
     registerDefaultPlugins()
-    // handleNewPlugins()
   }, [])
 
   return (
