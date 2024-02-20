@@ -13,7 +13,9 @@ const iFramer: Plugin = {
     const [url, setUrl] = useState('')
     return (
       <div className="w-64 space-y-1.5">
-        <p>URL will <span className="font-bold">not</span> be proxied.</p>
+        <p className="text-sm text-gray-400">
+          Be aware that url will <span className="font-semibold">not</span> be proxied.
+        </p>
         <Input placeholder="URL" value={url} onInput={(e) => setUrl((e.target as HTMLInputElement).value)} />
         <Button
           className="w-full"

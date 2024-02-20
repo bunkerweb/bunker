@@ -36,7 +36,6 @@ function internalUpdate() {
   //   const index = plugins.findIndex((plugin) => plugin.id == id)
   //   const selectedPlugin = plugins[index]
   //   if (!selectedPlugin) return
-
   //   selectedPlugin.disabled = true
   // })
 }
@@ -87,7 +86,8 @@ getSavedPlugins().forEach(async (url) => {
 })
 
 export function registerPlugin(plugin: Plugin): Plugin | undefined | void {
-  if (!plugin) return
+  if (!plugin) return;
+
   const plugins = $plugins.get()
 
   if (plugins.find((existingPlugin) => existingPlugin.id == plugin.id)) {
@@ -120,7 +120,7 @@ export async function fetchExternalPlugin(url: string): Promise<Plugin | undefin
   const plugin = module.default as Plugin
 
   if (plugin.id.startsWith('bunker.')) {
-    toast.error(`An error occured while registering ${plugin.id} - external plugin identifier cannot start with "bunker.".`)
+    toast.error(`An error occured while fetching ${plugin.id} - external plugin identifier cannot be in the bunker namespace.`)
     return
   }
 

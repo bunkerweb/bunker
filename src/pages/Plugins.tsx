@@ -83,7 +83,7 @@ export default function Plugins() {
                     <DialogContent className="w-96">
                       <DialogHeader>
                         <DialogTitle>Are you sure?</DialogTitle>
-                        <DialogDescription>This will remove "{plugin.name}" and all of its features.</DialogDescription>
+                        <DialogDescription>This will remove "{plugin.name}" and all of its features. You'll need its URL to add it again.</DialogDescription>
                       </DialogHeader>
                       <DialogFooter>
                         <Button>Confirm</Button>

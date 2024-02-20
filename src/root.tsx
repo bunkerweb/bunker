@@ -7,8 +7,23 @@ import Plugins from './pages/Plugins.tsx'
 import { useEffect } from 'react'
 import { registerDefaultPlugins } from './lib/pluginloader.ts'
 import PluginRouter from './pages/PluginRouter.tsx'
+import { createRoot } from 'react-dom/client'
 
 window.document.documentElement.classList.add('dark')
+
+
+// if (!window.frameElement) {
+//   const tab = window.open('about:blank', '_blank')
+//   const iframe = tab!.document.createElement('iframe')
+//   const stl = iframe!.style
+//   stl.border = stl.outline = 'none'
+//   stl.width = '100vw'
+//   stl.height = '100vh'
+//   stl.position = 'fixed'
+//   stl.left = stl.right = stl.top = stl.bottom = '0'
+//   iframe!.src = self.location.href
+//   tab!.document.body.appendChild(iframe!)
+// }
 
 export default function App() {
   useEffect(() => {
@@ -31,3 +46,5 @@ export default function App() {
     </div>
   )
 }
+
+createRoot(document.getElementById('root')!).render(<App />)

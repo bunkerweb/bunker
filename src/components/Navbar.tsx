@@ -1,4 +1,4 @@
-import { Home, LayoutGrid, LogOut, Settings } from 'lucide-react'
+import { Home, LayoutGrid, LogOut, RotateCw, Settings } from 'lucide-react'
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -29,7 +29,7 @@ export default function Navbar() {
   const navigate = useNavigate()
   return (
     <TooltipProvider>
-      <div className="w-16 h-screen bg-zinc-800 flex flex-col justify-between fixed left-0 top-0 z-[999]">
+      <div className="w-16 h-screen bg-zinc-800 flex flex-col justify-between fixed left-0 top-0 z-40">
         <div>
           <div className="font-extrabold text-3xl bg-zinc-700 hover:bg-sky-600 transition-colors duration-150 aspect-square m-3 rounded-lg flex items-center justify-center cursor-pointer">B</div>
           {navItems.map((item, index) => {
@@ -65,7 +65,7 @@ export default function Navbar() {
                     <item.icon className="bx bx-user group-active:scale-90 transition-all duration-300 text-2xl" />
                   </div>
                 </TooltipTrigger>
-                <TooltipContent side="right" >
+                <TooltipContent side="right">
                   <p>{item.name}</p>
                 </TooltipContent>
               </Tooltip>
