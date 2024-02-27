@@ -1,4 +1,4 @@
-import { Home, LayoutGrid, LogOut, RotateCw, Settings } from 'lucide-react'
+import { Home, LayoutGrid, Library, LogOut, Settings } from 'lucide-react'
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -13,11 +13,11 @@ export default function Navbar() {
       href: '/',
       position: 'top'
     },
-    // {
-    //   icon: <Library className="bx bx-user group-active:scale-90 transition-all duration-300 text-2xl" />,
-    //   tooltip: 'Library',
-    //   href: '/library'
-    // },
+    { 
+      icon: <Library className="bx bx-user group-active:scale-90 transition-all duration-300 text-2xl" />,
+      tooltip: 'Library',
+      href: '/library'
+    },
     {
       icon: <LayoutGrid className="bx bx-user group-active:scale-90 transition-all duration-300 text-2xl" />,
       tooltip: 'Plugins',
