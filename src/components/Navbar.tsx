@@ -31,7 +31,7 @@ export default function Navbar() {
     <TooltipProvider>
       <div className="w-16 h-screen bg-zinc-800 flex flex-col justify-between fixed left-0 top-0 z-40">
         <div>
-          <div className="font-extrabold text-3xl bg-zinc-700 hover:bg-sky-600 transition-colors duration-150 aspect-square m-3 rounded-lg flex items-center justify-center cursor-pointer">B</div>
+          <div className="font-extrabold text-3xl bg-zinc-700 aspect-square m-3 rounded-lg flex items-center justify-center cursor-pointer">B</div>
           {navItems.map((item, index) => {
             return (
               <Tooltip key={index} delayDuration={0}>
