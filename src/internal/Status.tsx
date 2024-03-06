@@ -2,6 +2,7 @@ import { Plugin } from '@/lib/pluginloader'
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { useEffect, useState } from 'react'
+import { Ban } from 'lucide-react'
 
 const Status: Plugin = {
   name: 'Status',
@@ -10,19 +11,22 @@ const Status: Plugin = {
 
   tile() {
     const [changelogOpen, setChangelogOpen] = useState(false)
+    const [secureEnv, setSecureEnv] = useState(window.top !== window.self)
+
     useEffect(() => {
       const changelog = setTimeout(() => {
-        setChangelogOpen(true)
+        // setChangelogOpen(true)
       }, 3000)
+
 
       return () => {
         clearTimeout(changelog)
       }
     }, [])
     return (
-      <div>
+      <div className="w-72">
         <p>
-          Hidden from extensions: <span className="text-green-500 font-semibold">Active</span>
+          Hidden from extensions: {secureEnv ? <span className="text-green-500 font-semibold">Active</span> : <span className="text-red-500 font-semibold">Not Active</span>}
         </p>
         <p>
           Bare server: <span className="text-red-500 font-semibold">Not Connected</span>
