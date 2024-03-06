@@ -2,7 +2,6 @@ import { Plugin } from '@/lib/pluginloader'
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { useEffect, useState } from 'react'
-import { Ban } from 'lucide-react'
 
 const Status: Plugin = {
   name: 'Status',
@@ -11,7 +10,7 @@ const Status: Plugin = {
 
   tile() {
     const [changelogOpen, setChangelogOpen] = useState(false)
-    const [secureEnv, setSecureEnv] = useState(window.top !== window.self)
+    const [secureEnv] = useState(window.top !== window.self)
 
     useEffect(() => {
       const changelog = setTimeout(() => {
