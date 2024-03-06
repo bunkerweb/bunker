@@ -5,9 +5,9 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 
 const iFramer: Plugin = {
-  name: 'iFramer',
-  id: 'bunker.iframer',
-  description: 'Opens an inputted url in an about:blank tab',
+  name: 'Viewer',
+  id: 'bunker.viewer',
+  description: 'Privately view a website inside Bunker',
 
   tile() {
     const [url, setUrl] = useState('');

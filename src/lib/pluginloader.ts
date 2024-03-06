@@ -69,7 +69,7 @@ export function togglePluginDisable(id: string) {
   return
 }
 
-import iFramer from '@/internal/iFramer'
+import iFramer from '@/internal/Viewer'
 import Status from '@/internal/Status'
 import Bookmarklets from '@/internal/Bookmarklets'
 
