@@ -10,13 +10,10 @@ const iFramer: Plugin = {
   description: 'Opens an inputted url in an about:blank tab',
 
   tile() {
-    const [url, setUrl] = useState('')
+    const [url, setUrl] = useState('');
     return (
       <div className="w-64 space-y-1.5">
-        <p className="text-sm text-gray-400">
-          Be aware that url will <span className="font-semibold">not</span> be proxied.
-        </p>
-        <Input placeholder="URL" value={url} onInput={(e) => setUrl((e.target as HTMLInputElement).value)} />
+        <Input placeholder="URL (not proxied)" value={url} onInput={(e) => setUrl((e.target as HTMLInputElement).value)} />
         <Button
           className="w-full"
           variant="outline"
@@ -39,7 +36,7 @@ const iFramer: Plugin = {
 
               setUrl('')
             } catch (e) {
-              toast.error('Invalid URL')
+              toast.error('Invalid URL. Please make sure to include https://')
             }
           }}
         >
