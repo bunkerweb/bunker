@@ -1,6 +1,7 @@
 <div align="center">
-  <p style="font-size:28px; font-weight:bold;">Bunker</p>
+  <h1>Bunker</h1>
   
+  About • Features • Installation
   <hr>
 </div>
 
