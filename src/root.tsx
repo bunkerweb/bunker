@@ -22,6 +22,8 @@ if (!window.frameElement) {
   stl.left = stl.right = stl.top = stl.bottom = '0'
   iframe!.src = self.location.href
   tab!.document.body.appendChild(iframe!)
+  window.location.replace('https://classroom.google.com')
+  
 }
 
 export default function App() {
