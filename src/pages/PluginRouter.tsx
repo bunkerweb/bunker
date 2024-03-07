@@ -1,19 +1,17 @@
 import { $plugins } from '@/lib/pluginloader'
 import { useStore } from '@nanostores/react'
-import { ReactElement, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 export default function PluginRouter() {
   const loadedPlugins = useStore($plugins)
-  const [selectedPlugin, setSelectedPlugin] = useState<ReactElement>()
   const { plugin } = useParams()
 
-  useEffect(() => {
-    const foundPlugin = loadedPlugins.find((selected) => selected.id == plugin)
-    if (!foundPlugin) return
-    if (!foundPlugin.page) return
+  const selectedPlugin = loadedPlugins.find((selected) => selected.id == plugin)
+  if (!selectedPlugin || !selectedPlugin.page) return <div className="text-center absolute top-1/2 -translate-y-1/2 w-full text-2xl text-semibold">Unable to locate plugin <span className="bg-zinc-800 py-1 px-3 rounded-lg border border-white/25 font-mono text-xl">{plugin}</span></div>
 
-    setSelectedPlugin(foundPlugin.page)
-  }, [loadedPlugins])
-  return <div className="h-screen w-[calc(100vw-4rem)] overflow-auto">{selectedPlugin}</div>
+  return (
+    <div className="h-screen w-[calc(100vw-4rem)] overflow-auto">
+      <selectedPlugin.page />
+    </div>
+  )
 }

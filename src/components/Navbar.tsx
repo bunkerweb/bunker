@@ -1,4 +1,4 @@
-import { Home, LayoutGrid, Library, LogOut, Settings } from 'lucide-react'
+import { Home, LayoutGrid, Library, Settings } from 'lucide-react'
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -73,7 +73,7 @@ export default function Navbar() {
           })}
         </div>
         <div>
-          <Tooltip delayDuration={0}>
+          {/* <Tooltip delayDuration={0}>
             <TooltipTrigger asChild>
               <div className="font-bold hover:bg-zinc-700 transition-colors duration-150 aspect-square flex items-center justify-center cursor-pointer group">
                 <LogOut className="group-active:scale-90 transition-all duration-300" />
@@ -82,7 +82,7 @@ export default function Navbar() {
             <TooltipContent side="right">
               <p>Exit Safely</p>
             </TooltipContent>
-          </Tooltip>
+          </Tooltip> */}
           <Tooltip delayDuration={0}>
             <TooltipTrigger asChild>
               <div className="font-bold hover:bg-zinc-700 transition-colors duration-150 aspect-square flex items-center justify-center cursor-pointer group">

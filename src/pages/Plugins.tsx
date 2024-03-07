@@ -10,6 +10,7 @@ import { useStore } from '@nanostores/react'
 import { Badge } from '@/components/ui/badge'
 import { AlertCircle, CheckCircle } from 'lucide-react'
 import { toast } from 'sonner'
+import { Label } from '@/components/ui/label'
 
 export default function Plugins() {
   const [pluginUrl, setPluginUrl] = useState('')
@@ -73,7 +74,11 @@ export default function Plugins() {
               </CardHeader>
               <CardContent>{plugin.description || 'A Bunker plugin.'}</CardContent>
               <CardFooter className="flex justify-between">
-                <Switch checked={!plugin.disabled} onCheckedChange={handleDisable} />
+                <div className="flex items-center space-x-2">
+                  <Switch checked={!plugin.disabled} onCheckedChange={handleDisable} />
+                  <Label>Enabled</Label>
+
+                </div>
 
                 {!plugin.id.startsWith('bunker.') && (
                   <Dialog>

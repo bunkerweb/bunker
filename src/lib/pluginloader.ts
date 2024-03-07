@@ -71,12 +71,10 @@ export function togglePluginDisable(id: string) {
 
 import iFramer from '@/internal/Viewer'
 import Status from '@/internal/Status'
-import Bookmarklets from '@/internal/Bookmarklets'
 
 export function registerDefaultPlugins() {
   registerPlugin(Status)
   registerPlugin(iFramer)
-  registerPlugin(Bookmarklets)
 }
 
 getSavedPlugins().forEach(async (url) => {
@@ -91,7 +89,7 @@ export function registerPlugin(plugin: Plugin): Plugin | undefined | void {
   const plugins = $plugins.get()
 
   if (plugins.find((existingPlugin) => existingPlugin.id == plugin.id)) {
-    toast.error(`An error occured while registering ${plugin.id} - plugin identifier already taken.`)
+    toast.error(`An error occured while registering ${plugin.id} - plugin identifier already registered.`)
     return
   }
 
