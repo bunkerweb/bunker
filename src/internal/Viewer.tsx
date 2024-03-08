@@ -7,7 +7,7 @@ import { Globe } from 'lucide-react'
 
 const Viewer: Plugin = {
   name: 'Viewer',
-  id: 'real.viewer',
+  id: 'bunker.viewer',
   description: 'Privately view a website inside Bunker',
   icon: Globe,
 
