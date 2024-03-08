@@ -13,7 +13,7 @@ export default function Navbar() {
       href: '/',
       position: 'top'
     },
-    { 
+    {
       icon: <Library className="bx bx-user group-active:scale-90 transition-all duration-300 text-2xl" />,
       tooltip: 'Library',
       href: '/library'

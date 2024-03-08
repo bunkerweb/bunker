@@ -84,7 +84,7 @@ getSavedPlugins().forEach(async (url) => {
 })
 
 export function registerPlugin(plugin: Plugin): Plugin | undefined | void {
-  if (!plugin) return;
+  if (!plugin) return
 
   const plugins = $plugins.get()
 

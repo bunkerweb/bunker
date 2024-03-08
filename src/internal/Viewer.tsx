@@ -59,7 +59,9 @@ const Viewer: Plugin = {
             <h1 className="text-4xl font-bold">Viewer</h1>
             <p>Privately use your game sites or proxies</p>
 
-            <div className="flex items-center gap-2 w-96"><Input></Input> <Button>Go</Button></div>
+            <div className="flex items-center gap-2 w-96">
+              <Input></Input> <Button>Go</Button>
+            </div>
           </div>
         )}
       </div>

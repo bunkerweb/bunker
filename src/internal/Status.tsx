@@ -17,16 +17,13 @@ const Status: Plugin = {
         // setChangelogOpen(true)
       }, 3000)
 
-
       return () => {
         clearTimeout(changelog)
       }
     }, [])
     return (
       <div className="w-72">
-        <p>
-          Hidden from extensions: {secureEnv ? <span className="text-green-500 font-semibold">Active</span> : <span className="text-red-500 font-semibold">Not Active</span>}
-        </p>
+        <p>Hidden from extensions: {secureEnv ? <span className="text-green-500 font-semibold">Active</span> : <span className="text-red-500 font-semibold">Not Active</span>}</p>
         <p>
           Bare server: <span className="text-red-500 font-semibold">Not Connected</span>
         </p>

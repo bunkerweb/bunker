@@ -77,7 +77,6 @@ export default function Plugins() {
                 <div className="flex items-center space-x-2">
                   <Switch checked={!plugin.disabled} onCheckedChange={handleDisable} />
                   <Label>Enabled</Label>
-
                 </div>
 
                 {!plugin.id.startsWith('bunker.') && (
