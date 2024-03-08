@@ -4,13 +4,14 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 
 import { Input } from '@/components/ui/input'
-import { $plugins, fetchExternalPlugin, togglePluginDisable } from '@/lib/pluginloader'
+import { $plugins, fetchExternalPlugin, registerPlugin, togglePluginDisable } from '@/lib/pluginloader'
 import { useState } from 'react'
 import { useStore } from '@nanostores/react'
-import { Badge } from '@/components/ui/badge'
-import { AlertCircle, CheckCircle } from 'lucide-react'
+// import { Badge } from '@/components/ui/badge'
+// import { AlertCircle, CheckCircle } from 'lucide-react'
 import { toast } from 'sonner'
 import { Label } from '@/components/ui/label'
+import store from 'store2'
 
 export default function Plugins() {
   const [pluginUrl, setPluginUrl] = useState('')
@@ -18,10 +19,14 @@ export default function Plugins() {
   async function uploadPlugin() {
     try {
       new URL(pluginUrl)
+      if (!pluginUrl.endsWith(".js")) return toast.error("Invalid plugin URL provided.")
       const plugin = await fetchExternalPlugin(pluginUrl)
-      if (!plugin || !plugin.id) toast.error('Invalid plugin URL provided.')
+      if (!plugin || !plugin.id) return toast.error('Invalid plugin URL provided.')
+
+      registerPlugin(plugin)
+      store('savedPlugins', [...store("savedPlugins") || [], pluginUrl])
     } catch (e) {
-      toast.error('Invalid plugin URL')
+      toast.error('Invalid plugin URL provided.')
     }
   }
   return (
@@ -37,7 +42,7 @@ export default function Plugins() {
             <DialogTitle>Add plugin</DialogTitle>
             <DialogDescription>
               Enter a valid plugin url down below. Make sure you trust the plugin's source, as they could be malicious.
-              {pluginUrl.startsWith('https://raw.githubusercontent.com/cafe-labs/bunker-plugins') ? (
+              {/* {pluginUrl.startsWith('https://raw.githubusercontent.com/cafe-labs/bunker-plugins') ? (
                 <Badge variant="default" className="mt-2 bg-green-400 hover:bg-green-400">
                   <CheckCircle className="h-4 w-4 mr-1.5" /> Verified
                 </Badge>
@@ -45,7 +50,7 @@ export default function Plugins() {
                 <Badge variant="default" className="mt-2 bg-red-400 hover:bg-red-400">
                   <AlertCircle className="h-4 w-4 mr-1.5" /> Unverified
                 </Badge>
-              ) : null}
+              ) : null} */}
             </DialogDescription>
           </DialogHeader>
           <Input value={pluginUrl} onInput={(e) => setPluginUrl((e.target as HTMLInputElement).value)} placeholder="Plugin URL" />
