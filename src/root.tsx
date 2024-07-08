@@ -1,7 +1,7 @@
 import Home from './pages/Home.tsx'
 import Navbar from './components/Navbar.tsx'
 import { Toaster } from './components/ui/sonner.tsx'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import './styles.css'
 import Plugins from './pages/Plugins.tsx'
 import { useEffect } from 'react'
@@ -18,7 +18,7 @@ export default function App() {
 
   return (
     <div className="flex bg-zinc-900">
-      <BrowserRouter>
+      <HashRouter>
         <Navbar />
         <Toaster position="top-right" />
         <div className="w-[calc(100vw-4rem)] absolute right-0 top-0 h-screen">
@@ -28,7 +28,7 @@ export default function App() {
             <Route element={<PluginRouter />} path="/plugin/:plugin" />
           </Routes>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   )
 }
