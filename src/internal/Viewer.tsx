@@ -48,22 +48,41 @@ const Viewer: Plugin = {
     )
   },
   page() {
-    const [url] = useState('')
+    const [url, setUrl] = useState('')
+    const [iframeVisable, setIframeVisable] = useState(false)
+    const launchViewer = (url: string) => {
+      try {
+        new URL(url)
+        const iframe = document.getElementById('iframe') as HTMLIFrameElement
+        iframe.src = url
+        setIframeVisable(true)
+      }
+      catch (e) {
+        toast.error('Invalid URL. Please make sure to include https://')
+      }
+    }
 
     return (
       <div className="h-full w-full">
-        {url ? (
-          <div></div>
-        ) : (
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-4 text-center">
-            <h1 className="text-4xl font-bold">Viewer</h1>
-            <p>Privately use your game sites or proxies</p>
-
-            <div className="flex items-center gap-2 w-96">
-              <Input></Input> <Button>Go</Button>
-            </div>
+       {!iframeVisable && (
+        <div className="flex flex-col items-center justify-center rounded-lg px-6 mt-20 py-10">
+          <div className="flex flex-col">
+            <h1 className="font-bold text-5xl text-center mb-2">Bunker Viewer</h1>
+            <Input className="border-none w-full mb-1" placeholder="URL (not proxied)" value={url} onChange={(e) => setUrl(e.target.value)} type="text" />
+            <Button className="hover:bg-primary hover:text-black" variant="outline" onClick={() => launchViewer(url)}>Go!</Button>
           </div>
-        )}
+        </div>
+      )}
+      <div className='w-full h-[92%] px-2 mt-2'>
+        <iframe id="iframe" className="w-full h-full" />
+      </div>
+
+      {iframeVisable && (
+        <div className="flex justify-center mt-2">
+          <Input className="border-none w-1/2 mb-1 mx-1" placeholder="URL (not proxied)" value={url} onChange={(e) => setUrl(e.target.value)} type="text" />
+          <Button className="hover:bg-primary hover:text-black mx-1" variant="outline" onClick={() => launchViewer(url)}>Go!</Button>
+        </div>
+      )}
       </div>
     )
   }

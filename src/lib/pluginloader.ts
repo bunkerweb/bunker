@@ -71,10 +71,12 @@ export function togglePluginDisable(id: string) {
 
 import iFramer from '@/internal/Viewer'
 import Status from '@/internal/Status'
+import gba from '@/internal/GBA'
 
 export function registerDefaultPlugins() {
   registerPlugin(Status)
   registerPlugin(iFramer)
+  registerPlugin(gba)
 }
 
 getSavedPlugins().forEach(async (url) => {
