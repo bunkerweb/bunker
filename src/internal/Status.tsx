@@ -1,4 +1,4 @@
-import { Plugin } from "@/lib/pluginloader";
+import { Plugin } from "@/lib/plugins";
 
 import {
   Dialog,

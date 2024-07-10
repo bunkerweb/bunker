@@ -23,7 +23,7 @@ import {
   fetchExternalPlugin,
   registerPlugin,
   togglePluginDisable,
-} from "@/lib/pluginloader";
+} from "@/lib/plugins";
 import { useState } from "react";
 import { useStore } from "@nanostores/react";
 // import { Badge } from '@/components/ui/badge'

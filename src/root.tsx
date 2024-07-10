@@ -5,7 +5,7 @@ import { Toaster } from "./components/ui/sonner.tsx";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import Plugins from "./routes/plugins.tsx";
 import { useEffect } from "react";
-import { registerDefaultPlugins } from "./lib/pluginloader.ts";
+import { registerDefaultPlugins } from "./lib/plugins.ts";
 import PluginRouter from "./routes/pluginrouter.tsx";
 import { createRoot } from "react-dom/client";
 

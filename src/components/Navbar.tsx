@@ -7,7 +7,7 @@ import {
   TooltipTrigger,
 } from "./ui/tooltip";
 import { useLocation, useNavigate } from "react-router-dom";
-import { $plugins } from "@/lib/pluginloader";
+import { $plugins } from "@/lib/plugins";
 import { useStore } from "@nanostores/react";
 export default function Navbar() {
   const loadedPlugins = useStore($plugins);

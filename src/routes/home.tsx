@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { $plugins } from "@/lib/pluginloader";
+import { $plugins } from "@/lib/plugins";
 import { useStore } from "@nanostores/react";
 
 export default function Home() {

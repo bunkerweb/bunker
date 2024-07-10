@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    {
+      "name": "Demo",
+      "id": "example.plugin",
+      "description": "An example plugin",
+      "url": "https://raw.githubusercontent.com/bunkerweb/store/main/plugins/Example.js"
+    }
+  ]
+}

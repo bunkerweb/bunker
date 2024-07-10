@@ -1,4 +1,4 @@
-import { $plugins } from "@/lib/pluginloader";
+import { $plugins } from "@/lib/plugins";
 import { useStore } from "@nanostores/react";
 import { useParams } from "react-router-dom";
 

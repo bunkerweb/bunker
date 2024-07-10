@@ -1,4 +1,4 @@
-import { Plugin } from "@/lib/pluginloader";
+import { Plugin } from "@/lib/plugins";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
