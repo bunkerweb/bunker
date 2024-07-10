@@ -1,21 +1,21 @@
-import Home from './pages/home.tsx'
-import Navbar from './components/navbar.tsx'
-import Store from './pages/store.tsx'
-import { Toaster } from './components/ui/sonner.tsx'
-import { HashRouter, Routes, Route } from 'react-router-dom'
-import './styles.css'
-import Plugins from './pages/plugins.tsx'
-import { useEffect } from 'react'
-import { registerDefaultPlugins } from './lib/pluginloader.ts'
-import PluginRouter from './pages/pluginrouter.tsx'
-import { createRoot } from 'react-dom/client'
+import Home from "./pages/home.tsx";
+import Navbar from "./components/navbar.tsx";
+import Store from "./pages/store.tsx";
+import { Toaster } from "./components/ui/sonner.tsx";
+import { HashRouter, Routes, Route } from "react-router-dom";
+import "./styles.css";
+import Plugins from "./pages/plugins.tsx";
+import { useEffect } from "react";
+import { registerDefaultPlugins } from "./lib/pluginloader.ts";
+import PluginRouter from "./pages/pluginrouter.tsx";
+import { createRoot } from "react-dom/client";
 
-window.document.documentElement.classList.add('dark')
+window.document.documentElement.classList.add("dark");
 
 export default function App() {
   useEffect(() => {
-    registerDefaultPlugins()
-  }, [])
+    registerDefaultPlugins();
+  }, []);
 
   return (
     <div className="flex bg-zinc-900">
@@ -32,7 +32,7 @@ export default function App() {
         </div>
       </HashRouter>
     </div>
-  )
+  );
 }
 
-createRoot(document.getElementById('root')!).render(<App />)
+createRoot(document.getElementById("root")!).render(<App />);

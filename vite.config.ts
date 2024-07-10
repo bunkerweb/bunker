@@ -5,7 +5,11 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  plugins: [million.vite({ auto: true, mute: true }), react(), viteSingleFile()],
+  plugins: [
+    million.vite({ auto: true, mute: true }),
+    react(),
+    viteSingleFile(),
+  ],
   resolve: {
     alias: {
       "@": resolve(__dirname, "./src"),

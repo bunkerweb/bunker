@@ -1,114 +1,122 @@
-import React from 'react'
-import store from 'store2'
-import { toast } from 'sonner'
-import { LucideIcon } from 'lucide-react'
-import { atom } from 'nanostores'
+import React from "react";
+import store from "store2";
+import { toast } from "sonner";
+import { LucideIcon } from "lucide-react";
+import { atom } from "nanostores";
 
-store.set('savedPlugins', [], false)
-store.set('disabledPlugins', [], false)
+store.set("savedPlugins", [], false);
+store.set("disabledPlugins", [], false);
 
 export interface Plugin {
-  name: string
-  id: string
-  disabled?: boolean
-  description?: string
-  icon?: LucideIcon
+  name: string;
+  id: string;
+  disabled?: boolean;
+  description?: string;
+  icon?: LucideIcon;
 
-  navPosition?: 'top' | 'bottom'
-  tile?: () => React.ReactElement
-  page?: () => React.ReactElement
+  navPosition?: "top" | "bottom";
+  tile?: () => React.ReactElement;
+  page?: () => React.ReactElement;
 
-  onReady?: () => void
+  onReady?: () => void;
 }
 
-export const $plugins = atom<Plugin[]>([])
+export const $plugins = atom<Plugin[]>([]);
 
 export function readyEvent() {
   $plugins.get().forEach((plugin) => {
-    if (!plugin.onReady) return
-    plugin.onReady()
-  })
+    if (!plugin.onReady) return;
+    plugin.onReady();
+  });
 }
 
 function getSavedPlugins() {
-  return store('savedPlugins') as string[]
+  return store("savedPlugins") as string[];
 }
 
 export function togglePluginDisable(id: string) {
-  const plugins = $plugins.get()
+  const plugins = $plugins.get();
 
   const updatedPlugins = plugins.map((item) => {
     if (item.id === id) {
-      return { ...item, disabled: !item.disabled }
+      return { ...item, disabled: !item.disabled };
     } else {
-      return item
+      return item;
     }
-  })
+  });
 
-  $plugins.set(updatedPlugins)
+  $plugins.set(updatedPlugins);
 
-  if (store('disabledPlugins').includes(id)) {
-    var updated = store('disabledPlugins').filter(() => !store('disabledPlugins').includes(id))
-    if (!updated[0]) store('disabledPlugins', [])
-    else store('disabledPlugins', [updated])
+  if (store("disabledPlugins").includes(id)) {
+    var updated = store("disabledPlugins").filter(
+      () => !store("disabledPlugins").includes(id),
+    );
+    if (!updated[0]) store("disabledPlugins", []);
+    else store("disabledPlugins", [updated]);
   } else {
-    store('disabledPlugins', [...store('disabledPlugins'), id])
+    store("disabledPlugins", [...store("disabledPlugins"), id]);
   }
-  return
+  return;
 }
 
-import iFramer from '@/internal/viewer'
-import Status from '@/internal/status'
-import gba from '@/internal/gba'
+import iFramer from "@/internal/viewer";
+import Status from "@/internal/status";
+import gba from "@/internal/gba";
 
 export function registerDefaultPlugins() {
-  registerPlugin(Status)
-  registerPlugin(iFramer)
-  registerPlugin(gba)
+  registerPlugin(Status);
+  registerPlugin(iFramer);
+  registerPlugin(gba);
 }
 
 getSavedPlugins().forEach(async (url) => {
-  const loadedPlugin = await fetchExternalPlugin(url)
-  if (!loadedPlugin) return
-  registerPlugin(loadedPlugin)
-})
+  const loadedPlugin = await fetchExternalPlugin(url);
+  if (!loadedPlugin) return;
+  registerPlugin(loadedPlugin);
+});
 
 export function registerPlugin(plugin: Plugin): Plugin | undefined | void {
-  if (!plugin) return
+  if (!plugin) return;
 
-  const plugins = $plugins.get()
+  const plugins = $plugins.get();
 
   if (plugins.find((existingPlugin) => existingPlugin.id == plugin.id)) {
-    toast.error(`An error occured while registering ${plugin.id} - plugin identifier already registered.`)
-    return
+    toast.error(
+      `An error occured while registering ${plugin.id} - plugin identifier already registered.`,
+    );
+    return;
   }
 
-  $plugins.set([...$plugins.get(), plugin])
-  console.log(plugin)
+  $plugins.set([...$plugins.get(), plugin]);
+  console.log(plugin);
 
-  if (plugin.onReady) plugin.onReady()
-  return plugin
+  if (plugin.onReady) plugin.onReady();
+  return plugin;
 }
 
-export async function fetchExternalPlugin(url: string): Promise<Plugin | undefined> {
-  const response = await fetch(url)
-  const code = await response.text()
-  const blob = new Blob([code], { type: 'text/javascript' })
-  const path = URL.createObjectURL(blob)
+export async function fetchExternalPlugin(
+  url: string,
+): Promise<Plugin | undefined> {
+  const response = await fetch(url);
+  const code = await response.text();
+  const blob = new Blob([code], { type: "text/javascript" });
+  const path = URL.createObjectURL(blob);
 
-  const module = await import(/* @vite-ignore */ path)
+  const module = await import(/* @vite-ignore */ path);
 
-  if (typeof module.default !== 'object' || !('name' in module.default)) {
-    toast.error(`No valid plugin exists for ${url}`)
-    return
+  if (typeof module.default !== "object" || !("name" in module.default)) {
+    toast.error(`No valid plugin exists for ${url}`);
+    return;
   }
 
-  const plugin = module.default as Plugin
+  const plugin = module.default as Plugin;
 
-  if (plugin.id.startsWith('bunker.')) {
-    toast.error(`An error occured while fetching ${plugin.id} - external plugin identifier cannot be in the bunker namespace.`)
-    return
+  if (plugin.id.startsWith("bunker.")) {
+    toast.error(
+      `An error occured while fetching ${plugin.id} - external plugin identifier cannot be in the bunker namespace.`,
+    );
+    return;
   }
 
-  return plugin
+  return plugin;
 }
