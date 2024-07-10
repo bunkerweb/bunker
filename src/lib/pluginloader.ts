@@ -30,16 +30,6 @@ export function readyEvent() {
   })
 }
 
-function internalUpdate() {
-  // store('disabledPlugins').forEach((id: string) => {
-  //   const plugins = $plugins.get()
-  //   const index = plugins.findIndex((plugin) => plugin.id == id)
-  //   const selectedPlugin = plugins[index]
-  //   if (!selectedPlugin) return
-  //   selectedPlugin.disabled = true
-  // })
-}
-
 function getSavedPlugins() {
   return store('savedPlugins') as string[]
 }
@@ -64,14 +54,12 @@ export function togglePluginDisable(id: string) {
   } else {
     store('disabledPlugins', [...store('disabledPlugins'), id])
   }
-
-  internalUpdate()
   return
 }
 
-import iFramer from '@/internal/Viewer'
-import Status from '@/internal/Status'
-import gba from '@/internal/GBA'
+import iFramer from '@/internal/viewer'
+import Status from '@/internal/status'
+import gba from '@/internal/gba'
 
 export function registerDefaultPlugins() {
   registerPlugin(Status)
@@ -99,8 +87,6 @@ export function registerPlugin(plugin: Plugin): Plugin | undefined | void {
   console.log(plugin)
 
   if (plugin.onReady) plugin.onReady()
-  internalUpdate()
-
   return plugin
 }
 
