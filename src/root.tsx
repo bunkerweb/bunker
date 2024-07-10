@@ -1,14 +1,15 @@
-import Home from "./pages/home.tsx";
+import Home from "./routes/home.tsx";
 import Navbar from "./components/navbar.tsx";
-import Store from "./pages/store.tsx";
+import Store from "./routes/store.tsx";
 import { Toaster } from "./components/ui/sonner.tsx";
 import { HashRouter, Routes, Route } from "react-router-dom";
-import "./styles.css";
-import Plugins from "./pages/plugins.tsx";
+import Plugins from "./routes/plugins.tsx";
 import { useEffect } from "react";
 import { registerDefaultPlugins } from "./lib/pluginloader.ts";
-import PluginRouter from "./pages/pluginrouter.tsx";
+import PluginRouter from "./routes/pluginrouter.tsx";
 import { createRoot } from "react-dom/client";
+
+import "./styles.css";
 
 window.document.documentElement.classList.add("dark");
 
