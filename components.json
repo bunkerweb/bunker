@@ -11,6 +11,6 @@
   },
   "aliases": {
     "components": "@/components",
-    "utils": "@/pages/utils"
+    "utils": "@/lib/cn"
   }
 }
