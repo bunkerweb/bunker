@@ -42,9 +42,9 @@ export function togglePluginDisable(id: string) {
   return
 }
 
-import Viewer from '@/internal/Viewer'
-import Status from '@/internal/Status'
-import gba from '@/internal/GBA'
+import Viewer from '@/internal/viewer'
+import Status from '@/internal/status'
+import gba from '@/internal/gba'
 
 export function registerDefaultPlugins() {
   registerPlugin(Status)
