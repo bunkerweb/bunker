@@ -15,18 +15,7 @@ interface PluginInfo {
 }
 
 export default function Store() {
-  const data = {
-    plugins: [
-      {
-        name: 'Demo',
-        id: 'example.plugin',
-        description: 'An example plugin',
-        url: 'https://raw.githubusercontent.com/bunkerweb/store/main/plugins/Example4.js'
-      }
-    ]
-  }
-
-  const isLoading = false
+  const { data, isLoading } = useSWR("https://raw.githubusercontent.com/bunkerweb/store/main/store.json")
 
   const [installedPlugins, setInstalledPlugins] = useState<string[]>([])
   const plugins = useStore($plugins)
