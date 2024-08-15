@@ -45,4 +45,4 @@ jobs:
         git commit -m "Updated bunker"
     - name: Push changes
       run: |
-        git push --set-upstream origin updates --force
+        git push --set-upstream origin updates
