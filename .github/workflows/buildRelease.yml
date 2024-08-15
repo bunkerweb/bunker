@@ -41,9 +41,9 @@ jobs:
         git config --global user.name "github-actions[bot]"
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git checkout -B updates
-        git pull origin updates --rebase
         git add -A
         git commit -m "Updated bunker"
+        git pull origin updates --rebase
 
     - name: Push changes
       run: |
