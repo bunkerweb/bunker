@@ -7,12 +7,12 @@ const Updater: Plugin = {
   name: "Updater",
   id: "bunker.updater",
   tile() {
-    const currentVersion = "v0.1.5";
+    const currentVersion = "v0.1.6";
     const [latestVersion, setLatestVersion] = useState<string>();
     const [installedVersion, setInstalledVersion] = useState<string>();
 
     useEffect(() => {
-      setInstalledVersion("v0.1.3");
+      setInstalledVersion("v0.1.6");
       async function getLatestVersion() {
         const response = await fetch(
           "https://api.github.com/repos/bunkerweb/bunker/tags"
