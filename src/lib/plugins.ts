@@ -45,11 +45,13 @@ export function togglePluginDisable(id: string) {
 import Viewer from '@/internal/Viewer'
 import Status from '@/internal/Status'
 import gba from '@/internal/GBA'
+import Updater from '@/internal/Updater'
 
 export function registerDefaultPlugins() {
   registerPlugin(Status)
   registerPlugin(Viewer)
   registerPlugin(gba)
+  registerPlugin(Updater)
 }
 
 export function removePlugin(id: string) {
