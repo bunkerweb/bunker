@@ -39,5 +39,6 @@ jobs:
          git checkout -b updates
          cp dist/index.html .
          git commit index.html -m "Updated bunker"
+         git push --set-upstream origin main
          git status
          git push
