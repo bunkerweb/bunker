@@ -31,3 +31,12 @@ jobs:
       with:
         files: |
           dist/index.html
+    - name: Push to update branch
+      run: |
+         git config --global user.name "github-actions[bot]"
+         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+         git add -A
+         git checkout -b updates
+         git commit dist/index.html
+         git status
+         git push
