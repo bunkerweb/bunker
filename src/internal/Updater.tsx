@@ -1,6 +1,15 @@
 import { Plugin } from "@/lib/types";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { RefreshCw } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Updater: Plugin = {
   name: "Updater",
@@ -102,63 +111,90 @@ const Updater: Plugin = {
       </>
     );
   },
-  // tile() {
-  //   const [latestTag, setLatestTag] = useState<string>(
-  //     localStorage.getItem("latestTag") || "lol no localstorage thing"
-  //   );
 
-  //   async function updateBunker() {
-  //     console.log(latestTag);
-  //     console.log(localStorage.getItem("latestTag"));
-  //     toast("New Bunker update available [" + latestTag + "]", {
-  //       action: {
-  //         label: "Install Now",
-  //         onClick: () => console.log("Undo"),
-  //       },
-  //     });
-  //   }
+  page() {
+    const archivedVersions = [
+      {
+        name: "v0.1.6",
+        description: "Added updater",
+        link: ""
+      }
+    ]
+    const [installedVersion, setInstalledVersion] = useState<string>();
+    const [selectedVersion, setSelectedVersion] = useState("Select Version");
+    const [updateText, setUpdateText] = useState<string>();
 
-  //   useEffect(() => {
-  //     const fetchLatestTag = async () => {
-  //       try {
-  //         const response = await fetch(
-  //           "https://api.github.com/repos/bunkerweb/bunker/tags"
-  //         );
-  //         const data = await response.json();
-  //         if (data.length > 0) {
-  //           const tagName = data[0].name;
+    useEffect(() => {
+      compareVersions(installedVersion, selectedVersion);
+    },[selectedVersion]) 
 
-  //           const storedTag = localStorage.getItem("latestTag");
-  //           if (storedTag === tagName) {
-  //             return;
-  //           }
+    useEffect(() => {
+      setInstalledVersion("v0.1.6");
+    });
 
-  //           localStorage.setItem("latestTag", tagName);
-  //           setLatestTag(tagName);
+    async function compareVersions(installedVersion: string | undefined, status: string) {
+      if (installedVersion == status) {
+        setUpdateText("Re-install")
+      } else if (installedVersion !== status) {
+        setUpdateText("Update/Downgrade")
+      } else {
+        setUpdateText("Error!")
+      }
+    };
+    return (
+      <>
+        <div className="mx-auto mt-20 max-w-md p-5 bg-card rounded-lg">
+          <h1 className="text-xl font-bold">Bunker Updater</h1>
+          <p className="mt-1">
+            Bunker's internal updater. Provides automatic updates, as well as
+            historical updates.
+          </p>
 
-  //           await updateBunker();
-  //         }
-  //       } catch (error) {
-  //         console.error("Error fetching the latest tag:", error);
-  //       }
-  //     };
+          <hr className="my-5"></hr>
 
-  //     fetchLatestTag();
-  //   }, []);
-
-  //   return (
-  //     <>
-  //       <p>Latest version: {latestTag}</p>
-  //       <Button
-  //         onClick={() => {
-  //           localStorage.clear();
-  //         }}
-  //       >
-  //         reset
-  //       </Button>
-  //     </>
-  //   );
-  // },
+          <h1 className="text-xl font-bold text-center">Archived Versions</h1>
+          <div className="flex justify-center mt-1">
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Button variant="outline">{selectedVersion}</Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem
+                onClick={() => {
+                  setSelectedVersion("v0.1.0");
+                }}
+              >
+                v0.1.0
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => {
+                  setSelectedVersion("v0.1.6");
+                }}
+              >
+                v0.1.6
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => {
+                  setSelectedVersion("v0.2.0");
+                }}
+              >
+                v0.2.0
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+        <div className="flex justify-center mt-1">
+          <Button
+            variant="secondary"
+            onClick={() => window.location.reload()}
+          >
+            {updateText}
+          </Button>
+        </div>
+        </div>
+      </>
+    )
+  },
 };
 
 export default Updater;
