@@ -38,6 +38,6 @@ jobs:
          git add -A
          git checkout -b updates
          cp dist/index.html .
-         git commit index.html
+         git commit index.html -m "Updated bunker"
          git status
          git push
