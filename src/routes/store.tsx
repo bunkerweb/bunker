@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { $plugins, fetchExternalPlugin, registerPlugin, removePlugin } from '@/lib/plugins'
+import { $plugins, fetchExternalPlugin, registerPlugin } from '@/lib/plugins'
 import { StoreItem } from '@/lib/types'
 import { useStore } from '@nanostores/react'
 import { useEffect, useState } from 'react'
@@ -8,7 +8,7 @@ import store from 'store2'
 import useSWR from 'swr'
 
 export default function Store() {
-  const { data, isLoading } = useSWR('https://raw.githubusercontent.com/bunkerweb/store/main/store.json', (url) => fetch(url).then((r) => r.json()))
+  const { data, isLoading } = useSWR('https://raw.githubusercontent.com/bunkerweb/store/main/data.json', (url) => fetch(url).then((r) => r.json()))
 
   const [installedPlugins, setInstalledPlugins] = useState<string[]>([])
   const plugins = useStore($plugins)
@@ -45,14 +45,7 @@ export default function Store() {
                 <div>{plugin.description}</div>
 
                 {installedPlugins.includes(plugin.id) ? (
-                  <Button
-                    onClick={async () => {
-                      removePlugin(plugin.id)
-                      setInstalledPlugins((prev) => prev.filter((p) => p !== plugin.id))
-                    }}
-                  >
-                    Uninstall
-                  </Button>
+                  <Button disabled>Installed</Button>
                 ) : (
                   <Button
                     onClick={async () => {
