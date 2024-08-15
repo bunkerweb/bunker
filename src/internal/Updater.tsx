@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Plugin } from "@/lib/types";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -6,13 +5,14 @@ import { toast } from "sonner";
 const Updater: Plugin = {
   name: "Updater",
   id: "bunker.updater",
+  description: "Bunker's internal updater. Provides automatic updates, as well as historical updates.",
   tile() {
-    const currentVersion = "v0.1.6";
+    const currentVersion = "v0.1.7";
     const [latestVersion, setLatestVersion] = useState<string>();
     const [installedVersion, setInstalledVersion] = useState<string>();
 
     useEffect(() => {
-      setInstalledVersion("v0.1.6");
+      setInstalledVersion("v0.1.7");
       async function getLatestVersion() {
         const response = await fetch(
           "https://api.github.com/repos/bunkerweb/bunker/tags"
@@ -97,9 +97,8 @@ const Updater: Plugin = {
 
     return (
       <>
-        <p>latest version: {latestVersion}</p>
-        <p>current version: {currentVersion}</p>
-        <Button onClick={() => localStorage.clear()}>reset</Button>
+        <p>Latest Bunker version: {latestVersion}</p>
+        <p>Installed Bunker version: {currentVersion}</p>
       </>
     );
   },
