@@ -43,7 +43,7 @@ jobs:
         git checkout -B updates
         git add -A
         git commit -m "Updated bunker"
-        git pull origin updates
+        git pull origin updates --rebase --strategy=ours
 
     - name: Push changes
       run: |
