@@ -1,4 +1,4 @@
-import { Plugin } from "@/lib/plugins";
+import { Plugin } from "@/lib/types";
 
 import {
   Dialog,

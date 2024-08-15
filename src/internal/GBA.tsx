@@ -1,4 +1,4 @@
-import { Plugin } from "@/lib/plugins";
+import { Plugin } from "@/lib/types";
 import { Gamepad } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
