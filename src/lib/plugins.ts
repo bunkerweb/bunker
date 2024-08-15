@@ -1,26 +1,10 @@
-import React from 'react'
 import store from 'store2'
 import { toast } from 'sonner'
-import { LucideIcon } from 'lucide-react'
 import { atom } from 'nanostores'
+import type { Plugin } from './types'
 
 store.set('savedPlugins', [], false)
 store.set('disabledPlugins', [], false)
-
-export interface Plugin {
-  name: string
-  id: string
-  disabled?: boolean
-  description?: string
-  icon?: LucideIcon
-  source?: string
-
-  navPosition?: 'top' | 'bottom'
-  tile?: () => React.ReactElement
-  page?: () => React.ReactElement
-
-  onReady?: () => void
-}
 
 export const $plugins = atom<Plugin[]>([])
 

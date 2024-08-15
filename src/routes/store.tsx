@@ -1,21 +1,14 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { fetchJson } from '@/lib/fetch'
-import { $plugins, fetchExternalPlugin, Plugin, registerPlugin, removePlugin } from '@/lib/plugins'
+import { $plugins, fetchExternalPlugin, registerPlugin, removePlugin } from '@/lib/plugins'
+import { StoreItem } from '@/lib/types'
 import { useStore } from '@nanostores/react'
 import { useEffect, useState } from 'react'
 import store from 'store2'
 import useSWR from 'swr'
 
-interface PluginInfo {
-  name: string
-  id: string
-  description: string
-  url: string
-}
-
 export default function Store() {
-  const { data, isLoading } = useSWR("https://raw.githubusercontent.com/bunkerweb/store/main/store.json")
+  const { data, isLoading } = useSWR<{ plugins: StoreItem[] }>('https://raw.githubusercontent.com/bunkerweb/store/main/store.json')
 
   const [installedPlugins, setInstalledPlugins] = useState<string[]>([])
   const plugins = useStore($plugins)
@@ -23,8 +16,7 @@ export default function Store() {
   useEffect(() => {
     if (!data) return
 
-    let plugin: PluginInfo
-    for (plugin of data.plugins) {
+    for (const plugin of data.plugins) {
       const foundPlugin = plugins.find((p) => {
         console.log(p.id, plugin.id)
         return p.id === plugin.id
@@ -40,7 +32,7 @@ export default function Store() {
       <h1 className="font-bold text-5xl">Store</h1>
 
       {!isLoading &&
-        data.plugins?.map((plugin: PluginInfo) => {
+        data!.plugins.map((plugin: StoreItem) => {
           return (
             <Card className="w-80" key={plugin.id}>
               <CardHeader>
