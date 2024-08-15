@@ -42,13 +42,13 @@ export function togglePluginDisable(id: string) {
   return
 }
 
-import iFramer from '@/internal/viewer'
+import Viewer from '@/internal/viewer'
 import Status from '@/internal/status'
 import gba from '@/internal/gba'
 
 export function registerDefaultPlugins() {
   registerPlugin(Status)
-  registerPlugin(iFramer)
+  registerPlugin(Viewer)
   registerPlugin(gba)
 }
 
