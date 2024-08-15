@@ -8,13 +8,14 @@ import store from 'store2'
 import useSWR from 'swr'
 
 export default function Store() {
-  const { data, isLoading } = useSWR<{ plugins: StoreItem[] }>('https://raw.githubusercontent.com/bunkerweb/store/main/store.json')
+  const { data, isLoading } = useSWR('https://raw.githubusercontent.com/bunkerweb/store/main/store.json', (url) => fetch(url).then((r) => r.json()))
 
   const [installedPlugins, setInstalledPlugins] = useState<string[]>([])
   const plugins = useStore($plugins)
 
   useEffect(() => {
     if (!data) return
+    console.log(data)
 
     for (const plugin of data.plugins) {
       const foundPlugin = plugins.find((p) => {
