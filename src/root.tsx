@@ -1,5 +1,5 @@
 import Home from "./routes/home";
-import Navbar from "./components/navbar";
+import Navbar from "./components/Navbar";
 import Store from "./routes/store";
 import { Toaster } from "./components/ui/sonner";
 import { HashRouter, Routes, Route } from "react-router-dom";
