@@ -1,5 +1,5 @@
 import Home from "./routes/home.tsx";
-import Navbar from "./components/navbar.tsx";
+import Navbar from "./components/Navbar.tsx";
 import Store from "./routes/store.tsx";
 import { Toaster } from "./components/ui/sonner.tsx";
 import { HashRouter, Routes, Route } from "react-router-dom";
