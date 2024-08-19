@@ -1,28 +1,36 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { $plugins } from "@/lib/plugins";
-import { useStore } from "@nanostores/react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
-  const plugins = useStore($plugins);
   return (
     <div className="flex flex-col items-center w-full pt-16">
-      <h1 className="font-bold text-5xl">Bunker </h1>
+      <h1 className="font-bold text-5xl">Bunker Installer</h1>
 
       <div className="flex flex-wrap justify-center gap-4 mt-8">
-        {plugins.map((plugin, index) => {
-          if (!plugin.tile) return;
-          if (plugin.disabled) return;
-          return (
-            <Card key={index}>
-              <CardHeader>
-                <CardTitle>{plugin.name}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <plugin.tile />
-              </CardContent>
-            </Card>
-          );
-        })}
+        <div className="flex flex-col items-center bg-card p-5 rounded-md">
+          <h1 className="f text-xl">Select Version</h1>
+          <div className="mt-4">
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Button variant="outline">
+                  <span>Version</span>
+                  <span className="text-right">
+                    <
+                  </span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+
+
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </div>
       </div>
     </div>
   );
