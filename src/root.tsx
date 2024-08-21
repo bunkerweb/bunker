@@ -1,6 +1,7 @@
 import Home from "./routes/home";
 import Navbar from "./components/Navbar";
 import Store from "./routes/store";
+import Info from "./routes/info";
 import { Toaster } from "./components/ui/sonner";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import Plugins from "./routes/plugins";
@@ -29,6 +30,7 @@ export default function App() {
             <Route element={<Plugins />} path="/plugins" />
             <Route element={<PluginRouter />} path="/plugin/:plugin" />
             <Route element={<Store />} path="/store" />
+            <Route element={<Info />} path="/info" />
           </Routes>
         </div>
       </HashRouter>

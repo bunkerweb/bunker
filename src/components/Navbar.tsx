@@ -1,4 +1,4 @@
-import { Home, LayoutGrid, Library, Settings } from "lucide-react";
+import { Home, LayoutGrid, Library, Settings, Info } from "lucide-react";
 
 import {
   Tooltip,
@@ -104,6 +104,20 @@ export default function Navbar() {
             </TooltipTrigger>
             <TooltipContent side="right">
               <p>Settings</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip delayDuration={0}>
+            <TooltipTrigger asChild>
+              <div
+               onClick={() => {
+                navigate(`/info`);
+              }}
+              className="font-bold hover:bg-zinc-700 transition-colors duration-150 aspect-square flex items-center justify-center cursor-pointer group">
+                <Info className="group-active:scale-90 transition-all duration-300" />
+              </div>
+            </TooltipTrigger>
+            <TooltipContent side="right">
+              <p>About Bunker</p>
             </TooltipContent>
           </Tooltip>
         </div>
