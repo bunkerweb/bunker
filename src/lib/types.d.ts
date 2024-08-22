@@ -18,4 +18,6 @@ export interface StoreItem {
   id: string
   description: string
   url: string
+  version: string
+  author: string
 }

@@ -38,7 +38,10 @@ export default function Store() {
             <Card className="w-80" key={plugin.id}>
               <CardHeader>
                 <CardTitle>{plugin.name}</CardTitle>
-                <CardDescription>{plugin.id}</CardDescription>
+                <div className='flex'>
+                <CardDescription className="font-mono font-normal text-sm">{plugin.id}</CardDescription>
+                <CardDescription className="font-mono ml-1 font-normal text-sm">· {plugin.version}</CardDescription>
+                </div>
               </CardHeader>
 
               <CardContent className="space-y-4">
