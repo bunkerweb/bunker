@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import * as semver from "semver";
 import {
   DropdownMenu,
   DropdownMenuContent,
