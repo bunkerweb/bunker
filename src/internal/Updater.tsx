@@ -18,12 +18,12 @@ const Updater: Plugin = {
   description: "Bunker's internal updater. Provides automatic updates, as well as historical updates.",
   icon: RefreshCw,
   tile() {
-    const currentVersion = "v0.2.1";
+    const currentVersion = "v0.2.2";
     const [latestVersion, setLatestVersion] = useState<string>();
     const [installedVersion, setInstalledVersion] = useState<string>();
 
     useEffect(() => {
-      setInstalledVersion("v0.2.1");
+      setInstalledVersion("v0.2.2");
       async function getLatestVersion() {
         const response = await fetch(
           "https://api.github.com/repos/bunkerweb/bunker/tags"
@@ -126,7 +126,7 @@ const Updater: Plugin = {
     },[selectedVersion]) 
 
     useEffect(() => {
-      setInstalledVersion("v0.2.1");
+      setInstalledVersion("v0.2.2");
     });
 
     useState(() => {

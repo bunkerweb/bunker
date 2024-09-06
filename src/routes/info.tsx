@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 
 export default function Info() {
-    const version = "1.0.0";
+    const version = "v0.2.2";
     return (
         <>
         <div className="text-center font-bold text-5xl mt-16">
@@ -30,6 +30,7 @@ export default function Info() {
                         <li>Initial Release</li>
                         <li>Added support for plugins</li>
                     </ul>
+                    
                 </div>
             </div>
         </div>

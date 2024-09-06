@@ -34,14 +34,7 @@ const gba: Plugin = {
             <DropdownMenuContent>
               <DropdownMenuItem
                 onClick={() => {
-                  setUrl("https://cattn.github.io/gba");
-                }}
-              >
-                1.0
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => {
-                  setUrl("https://math-study.github.io/gba");
+                  setUrl("https://mathstudy.dev/gba");
                 }}
               >
                 2.0
