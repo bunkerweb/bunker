@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Globe } from "lucide-react";
+import { Maximize2 } from "lucide-react";
 
 const Viewer: Plugin = {
   name: "Viewer",
@@ -54,10 +55,15 @@ const Viewer: Plugin = {
   page() {
     const [url, setUrl] = useState("");
     const [iframeVisable, setIframeVisable] = useState(false);
+
+    const fullScreen = () => {
+      const iframe = document.getElementById("framers") as HTMLIFrameElement;
+      iframe.requestFullscreen();
+    }
     const launchViewer = (url: string) => {
       try {
         new URL(url);
-        const iframe = document.getElementById("iframe") as HTMLIFrameElement;
+        const iframe = document.getElementById("framers") as HTMLIFrameElement;
         iframe.src = url;
         setIframeVisable(true);
       } catch (e) {
@@ -91,11 +97,12 @@ const Viewer: Plugin = {
           </div>
         )}
         <div className="w-full h-[92%] px-2 mt-2">
-          <iframe id="iframe" className="w-full h-full" />
+          <iframe id="framers" className="w-full h-full" />
         </div>
 
         {iframeVisable && (
           <div className="flex justify-center mt-2">
+            <Button className="p-2 mr-1" variant="outline" onClick={fullScreen}><Maximize2 /></Button>
             <Input
               className="border-none w-1/2 mb-1 mx-1"
               placeholder="URL (not proxied)"

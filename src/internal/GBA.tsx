@@ -1,6 +1,7 @@
 import { Plugin } from "@/lib/types";
 import { Gamepad } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Maximize2 } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,16 +18,23 @@ const gba: Plugin = {
 
   page() {
     const [url, setUrl] = useState("https://ilovemath.pics/");
+
+    const fullScreen = () => {
+      const iframe = document.getElementById("framey") as HTMLIFrameElement;
+      iframe.requestFullscreen();
+    }
     return (
       <div className="flex flex-col items-center justify-center w-full h-full mt-2">
         <div className="w-[92%] h-[92%]">
           <iframe
-            id="iframe"
+            allow="fullscreen"
+            id="framey"
             className="border-8 border-secondary w-full h-full"
             src={url}
           />
         </div>
         <div className="flex justify-center mt-1">
+          <Button className="p-2 mr-1" variant="outline" onClick={fullScreen}><Maximize2 /></Button>
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Button variant="outline">Select GBA Version</Button>
