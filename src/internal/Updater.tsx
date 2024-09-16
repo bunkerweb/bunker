@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import * as semver from "semver";
+import version from "@/lib/bunker";
 
 import {
   DropdownMenu,
@@ -18,12 +19,11 @@ const Updater: Plugin = {
   description: "Bunker's internal updater. Provides automatic updates, as well as historical updates.",
   icon: RefreshCw,
   tile() {
-    const currentVersion = "v0.2.2";
     const [latestVersion, setLatestVersion] = useState<string>();
     const [installedVersion, setInstalledVersion] = useState<string>();
 
     useEffect(() => {
-      setInstalledVersion("v0.2.2");
+      setInstalledVersion(version);
       async function getLatestVersion() {
         const response = await fetch(
           "https://api.github.com/repos/bunkerweb/bunker/tags"
@@ -109,7 +109,7 @@ const Updater: Plugin = {
     return (
       <>
         <p>Latest Bunker version: {latestVersion}</p>
-        <p>Installed Bunker version: {currentVersion}</p>
+        <p>Installed Bunker version: {version}</p>
       </>
     );
   },
@@ -126,7 +126,7 @@ const Updater: Plugin = {
     },[selectedVersion]) 
 
     useEffect(() => {
-      setInstalledVersion("v0.2.2");
+      setInstalledVersion(version);
     });
 
     useState(() => {
