@@ -47,7 +47,7 @@ import Status from '@/internal/Status'
 import gba from '@/internal/GBA'
 import Updater from '@/internal/Updater'
 import bunker from '@/lib/bunker'
-import { get, set } from 'idb-keyval';
+import { get, set, del } from 'idb-keyval';
 
 export function registerDefaultPlugins() {
   registerPlugin(Status)
@@ -59,6 +59,10 @@ export function registerDefaultPlugins() {
 export function removePlugin(id: string) {
   const plugin = $plugins.get().find((p) => p.id == id)
   if (!plugin) return
+  if (bunker.pluginLocation == 'internal') {
+    // @ts-ignore
+    del(plugin.source)
+  }
 
   const updated = $plugins.get().filter((p) => p.id !== id)
   $plugins.set(updated)
