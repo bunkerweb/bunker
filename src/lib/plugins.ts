@@ -46,6 +46,8 @@ import Viewer from '@/internal/Viewer'
 import Status from '@/internal/Status'
 import gba from '@/internal/GBA'
 import Updater from '@/internal/Updater'
+import bunker from '@/lib/bunker'
+import { get, set } from 'idb-keyval';
 
 export function registerDefaultPlugins() {
   registerPlugin(Status)
@@ -70,12 +72,30 @@ export function removePlugin(id: string) {
 }
 
 getSavedPlugins().forEach(async (url) => {
+  if (bunker.pluginLocation == 'internal') {
+    get(url).then(async (value) => {
+      if (!value) return
+      const path = URL.createObjectURL(value)
+      const module = await import(/* @vite-ignore */ path)
+      const plugin = module.default as Plugin
+      registerPlugin({
+        ...plugin,
+        source: url
+      })
+
+      console.log("Loaded plugin from storage.")
+    })
+  } else {
   const loadedPlugin = await fetchExternalPlugin(url)
   if (!loadedPlugin) return
   registerPlugin({
     ...loadedPlugin,
     source: url
   })
+
+  console.log("Loaded plugin from URL")
+}
+  
 })
 
 export function registerPlugin(plugin: Plugin): Plugin | undefined | void {
@@ -100,6 +120,10 @@ export async function fetchExternalPlugin(url: string): Promise<Plugin | undefin
   const code = await response.text()
   const blob = new Blob([code], { type: 'text/javascript' })
   const path = URL.createObjectURL(blob)
+  if (bunker.pluginLocation == 'internal') {
+    set(url, blob);
+  }
+
 
   const module = await import(/* @vite-ignore */ path)
 
