@@ -1,2 +1,8 @@
 const version = "v0.2.3";
-export default version;
+const pluginLocation = "internal"
+
+const bunker = {
+    version,
+    pluginLocation
+}
+export default bunker;
