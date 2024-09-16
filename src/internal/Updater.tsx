@@ -21,6 +21,7 @@ const Updater: Plugin = {
   tile() {
     const [latestVersion, setLatestVersion] = useState<string>();
     const [installedVersion, setInstalledVersion] = useState<string>();
+    const [updateText, setUpdateText] = useState<string>();
 
     useEffect(() => {
       setInstalledVersion(bunker.version);
@@ -49,6 +50,7 @@ const Updater: Plugin = {
             },
           });
         } else if (latestVersion !== undefined) {
+          setUpdateText("New Update Available: " + latestVersion);
           toast("New Bunker update available [" + latestVersion + "]", {
             action: {
               label: "Install Now",
@@ -110,6 +112,7 @@ const Updater: Plugin = {
       <>
         <p>Latest Bunker version: {latestVersion}</p>
         <p>Installed Bunker version: {bunker.version}</p>
+        <p style={{ color: "red" }}>{updateText}</p>
       </>
     );
   },
