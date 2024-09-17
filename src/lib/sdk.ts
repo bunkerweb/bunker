@@ -4,5 +4,4 @@ export default class SDK {
   constructor(id: string) {
     this.id = id
   }
-  
 }

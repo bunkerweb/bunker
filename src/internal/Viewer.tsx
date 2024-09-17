@@ -1,10 +1,10 @@
-import { Plugin } from "@/lib/types";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import { toast } from "sonner";
-import { Globe } from "lucide-react";
-import { Maximize2 } from "lucide-react";
+import { Plugin } from "@/lib/types"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { useState } from "react"
+import { toast } from "sonner"
+import { Globe } from "lucide-react"
+import { Maximize2 } from "lucide-react"
 
 const Viewer: Plugin = {
   name: "Viewer",
@@ -13,7 +13,7 @@ const Viewer: Plugin = {
   icon: Globe,
 
   tile() {
-    const [url, setUrl] = useState("");
+    const [url, setUrl] = useState("")
     return (
       <div className="w-64 space-y-1.5">
         <Input
@@ -26,50 +26,50 @@ const Viewer: Plugin = {
           variant="outline"
           onClick={() => {
             try {
-              new URL(url);
-              const tab = window.open("about:blank", "_blank");
-              if (!tab) return;
-              const iframe = tab.document.createElement("iframe");
+              new URL(url)
+              const tab = window.open("about:blank", "_blank")
+              if (!tab) return
+              const iframe = tab.document.createElement("iframe")
 
-              const stl = iframe.style;
-              stl.border = stl.outline = "none";
-              stl.width = "100vw";
-              stl.height = "100vh";
-              stl.position = "fixed";
-              stl.left = stl.right = stl.top = stl.bottom = "0";
+              const stl = iframe.style
+              stl.border = stl.outline = "none"
+              stl.width = "100vw"
+              stl.height = "100vh"
+              stl.position = "fixed"
+              stl.left = stl.right = stl.top = stl.bottom = "0"
 
-              iframe.src = url;
-              tab.document.body.appendChild(iframe);
+              iframe.src = url
+              tab.document.body.appendChild(iframe)
 
-              setUrl("");
+              setUrl("")
             } catch (e) {
-              toast.error("Invalid URL. Please make sure to include https://");
+              toast.error("Invalid URL. Please make sure to include https://")
             }
           }}
         >
           Go
         </Button>
       </div>
-    );
+    )
   },
   page() {
-    const [url, setUrl] = useState("");
-    const [iframeVisable, setIframeVisable] = useState(false);
+    const [url, setUrl] = useState("")
+    const [iframeVisable, setIframeVisable] = useState(false)
 
     const fullScreen = () => {
-      const iframe = document.getElementById("framers") as HTMLIFrameElement;
-      iframe.requestFullscreen();
+      const iframe = document.getElementById("framers") as HTMLIFrameElement
+      iframe.requestFullscreen()
     }
     const launchViewer = (url: string) => {
       try {
-        new URL(url);
-        const iframe = document.getElementById("framers") as HTMLIFrameElement;
-        iframe.src = url;
-        setIframeVisable(true);
+        new URL(url)
+        const iframe = document.getElementById("framers") as HTMLIFrameElement
+        iframe.src = url
+        setIframeVisable(true)
       } catch (e) {
-        toast.error("Invalid URL. Please make sure to include https://");
+        toast.error("Invalid URL. Please make sure to include https://")
       }
-    };
+    }
 
     return (
       <div className="h-full w-full">
@@ -102,7 +102,9 @@ const Viewer: Plugin = {
 
         {iframeVisable && (
           <div className="flex justify-center mt-2">
-            <Button className="p-2 mr-1" variant="outline" onClick={fullScreen}><Maximize2 /></Button>
+            <Button className="p-2 mr-1" variant="outline" onClick={fullScreen}>
+              <Maximize2 />
+            </Button>
             <Input
               className="border-none w-1/2 mb-1 mx-1"
               placeholder="URL (not proxied)"
@@ -120,8 +122,8 @@ const Viewer: Plugin = {
           </div>
         )}
       </div>
-    );
+    )
   },
-};
+}
 
-export default Viewer;
+export default Viewer

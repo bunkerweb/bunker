@@ -6,7 +6,7 @@ export interface Plugin {
   icon?: LucideIcon
   source?: string
 
-  navPosition?: 'top' | 'bottom'
+  navPosition?: "top" | "bottom"
   tile?: () => React.ReactElement
   page?: () => React.ReactElement
 

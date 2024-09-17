@@ -1,14 +1,12 @@
-import { $plugins } from "@/lib/plugins";
-import { useStore } from "@nanostores/react";
-import { useParams } from "react-router-dom";
+import { $plugins } from "@/lib/plugins"
+import { useStore } from "@nanostores/react"
+import { useParams } from "react-router-dom"
 
 export default function PluginRouter() {
-  const loadedPlugins = useStore($plugins);
-  const { plugin } = useParams();
+  const loadedPlugins = useStore($plugins)
+  const { plugin } = useParams()
 
-  const selectedPlugin = loadedPlugins.find(
-    (selected) => selected.id == plugin,
-  );
+  const selectedPlugin = loadedPlugins.find((selected) => selected.id == plugin)
   if (!selectedPlugin || !selectedPlugin.page)
     return (
       <div className="text-center absolute top-1/2 -translate-y-1/2 w-full text-2xl text-semibold">
@@ -17,11 +15,11 @@ export default function PluginRouter() {
           {plugin}
         </span>
       </div>
-    );
+    )
 
   return (
     <div className="h-screen w-[calc(100vw-4rem)] overflow-auto">
       <selectedPlugin.page />
     </div>
-  );
+  )
 }

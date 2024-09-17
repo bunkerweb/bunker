@@ -1,14 +1,23 @@
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { $plugins, fetchExternalPlugin, registerPlugin } from '@/lib/plugins'
-import { StoreItem } from '@/lib/types'
-import { useStore } from '@nanostores/react'
-import { useEffect, useState } from 'react'
-import store from 'store2'
-import useSWR from 'swr'
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { $plugins, fetchExternalPlugin, registerPlugin } from "@/lib/plugins"
+import { StoreItem } from "@/lib/types"
+import { useStore } from "@nanostores/react"
+import { useEffect, useState } from "react"
+import store from "store2"
+import useSWR from "swr"
 
 export default function Store() {
-  const { data, isLoading } = useSWR('https://raw.githubusercontent.com/bunkerweb/store/main/data.json', (url) => fetch(url).then((r) => r.json()))
+  const { data, isLoading } = useSWR(
+    "https://raw.githubusercontent.com/bunkerweb/store/main/data.json",
+    (url) => fetch(url).then((r) => r.json()),
+  )
 
   const [installedPlugins, setInstalledPlugins] = useState<string[]>([])
   const plugins = useStore($plugins)
@@ -24,7 +33,8 @@ export default function Store() {
       })
       if (!foundPlugin) return
 
-      if (!installedPlugins.includes(foundPlugin.id)) setInstalledPlugins((prev) => [...prev, foundPlugin.id])
+      if (!installedPlugins.includes(foundPlugin.id))
+        setInstalledPlugins((prev) => [...prev, foundPlugin.id])
     }
   }, [data, plugins])
 
@@ -38,9 +48,13 @@ export default function Store() {
             <Card className="w-80" key={plugin.id}>
               <CardHeader>
                 <CardTitle>{plugin.name}</CardTitle>
-                <div className='flex'>
-                <CardDescription className="font-mono font-normal text-sm">{plugin.id}</CardDescription>
-                <CardDescription className="font-mono ml-1 font-normal text-sm">· {plugin.version}</CardDescription>
+                <div className="flex">
+                  <CardDescription className="font-mono font-normal text-sm">
+                    {plugin.id}
+                  </CardDescription>
+                  <CardDescription className="font-mono ml-1 font-normal text-sm">
+                    · {plugin.version}
+                  </CardDescription>
                 </div>
               </CardHeader>
 
@@ -57,9 +71,12 @@ export default function Store() {
 
                       registerPlugin({
                         ...data,
-                        source: plugin.url
+                        source: plugin.url,
                       })
-                      store('savedPlugins', [...store('savedPlugins'), plugin.url])
+                      store("savedPlugins", [
+                        ...store("savedPlugins"),
+                        plugin.url,
+                      ])
                     }}
                   >
                     Install

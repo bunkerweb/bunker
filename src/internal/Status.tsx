@@ -1,4 +1,4 @@
-import { Plugin } from "@/lib/types";
+import { Plugin } from "@/lib/types"
 
 import {
   Dialog,
@@ -6,8 +6,8 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { useEffect, useState } from "react";
+} from "@/components/ui/dialog"
+import { useEffect, useState } from "react"
 
 const Status: Plugin = {
   name: "Status",
@@ -15,18 +15,18 @@ const Status: Plugin = {
   description: "Display some important internal information about Bunker",
 
   tile() {
-    const [changelogOpen, setChangelogOpen] = useState(false);
-    const [secureEnv] = useState(window.top !== window.self);
+    const [changelogOpen, setChangelogOpen] = useState(false)
+    const [secureEnv] = useState(window.top !== window.self)
 
     useEffect(() => {
       const changelog = setTimeout(() => {
         // setChangelogOpen(true)
-      }, 3000);
+      }, 3000)
 
       return () => {
-        clearTimeout(changelog);
-      };
-    }, []);
+        clearTimeout(changelog)
+      }
+    }, [])
     return (
       <div className="w-72">
         <p>
@@ -57,12 +57,12 @@ const Status: Plugin = {
           </DialogContent>
         </Dialog>
       </div>
-    );
+    )
   },
 
   onReady() {
-    console.log("Status");
+    console.log("Status")
   },
-};
+}
 
-export default Status;
+export default Status
