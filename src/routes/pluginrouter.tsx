@@ -1,4 +1,5 @@
 import { $plugins } from "@/lib/plugins"
+import { createSDK } from "@/lib/sdk"
 import { useStore } from "@nanostores/react"
 import { useParams } from "react-router-dom"
 
@@ -19,7 +20,7 @@ export default function PluginRouter() {
 
   return (
     <div className="h-screen w-[calc(100vw-4rem)] overflow-auto">
-      <selectedPlugin.page />
+      {selectedPlugin.page(createSDK(selectedPlugin.id))}
     </div>
   )
 }

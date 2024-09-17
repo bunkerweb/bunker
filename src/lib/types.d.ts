@@ -1,3 +1,5 @@
+import { SDK } from "./sdk"
+
 export interface Plugin {
   name: string
   id: string
@@ -7,10 +9,10 @@ export interface Plugin {
   source?: string
 
   navPosition?: "top" | "bottom"
-  tile?: () => React.ReactElement
-  page?: () => React.ReactElement
+  tile?: (sdk: SDK) => React.ReactNode
+  page?: (sdk: SDK) => React.ReactNode
 
-  onReady?: () => void
+  onReady?: (sdk: SDK) => void
 }
 
 export interface StoreItem {
