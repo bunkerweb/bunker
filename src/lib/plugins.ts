@@ -77,7 +77,7 @@ export function removePlugin(id: string) {
 
 getSavedPlugins().forEach(async (url) => {
   if (bunker.pluginLocation == 'internal') {
-    get(url).then(async (value) => {
+    get(url).then(async (value: Blob | undefined) => {
       if (!value) return
       const path = URL.createObjectURL(value)
       const module = await import(/* @vite-ignore */ path)
