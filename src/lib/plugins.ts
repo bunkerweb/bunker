@@ -1,10 +1,10 @@
-import store from 'store2'
-import { toast } from 'sonner'
-import { atom } from 'nanostores'
-import type { Plugin } from './types'
+import store from "store2"
+import { toast } from "sonner"
+import { atom } from "nanostores"
+import type { Plugin } from "./types"
 
-store.set('savedPlugins', [], false)
-store.set('disabledPlugins', [], false)
+store.set("savedPlugins", [], false)
+store.set("disabledPlugins", [], false)
 
 export const $plugins = atom<Plugin[]>([])
 
@@ -16,7 +16,7 @@ export function readyEvent() {
 }
 
 function getSavedPlugins() {
-  return store('savedPlugins') as string[]
+  return store("savedPlugins") as string[]
 }
 
 export function togglePluginDisable(id: string) {
@@ -32,22 +32,24 @@ export function togglePluginDisable(id: string) {
 
   $plugins.set(updatedPlugins)
 
-  if (store('disabledPlugins').includes(id)) {
-    var updated = store('disabledPlugins').filter(() => !store('disabledPlugins').includes(id))
-    if (!updated[0]) store('disabledPlugins', [])
-    else store('disabledPlugins', [updated])
+  if (store("disabledPlugins").includes(id)) {
+    var updated = store("disabledPlugins").filter(
+      () => !store("disabledPlugins").includes(id),
+    )
+    if (!updated[0]) store("disabledPlugins", [])
+    else store("disabledPlugins", [updated])
   } else {
-    store('disabledPlugins', [...store('disabledPlugins'), id])
+    store("disabledPlugins", [...store("disabledPlugins"), id])
   }
   return
 }
 
-import Viewer from '@/internal/Viewer'
-import Status from '@/internal/Status'
-import gba from '@/internal/GBA'
-import Updater from '@/internal/Updater'
-import bunker from '@/lib/bunker'
-import { get, set, del } from 'idb-keyval';
+import Viewer from "@/internal/Viewer"
+import Status from "@/internal/Status"
+import gba from "@/internal/GBA"
+import Updater from "@/internal/Updater"
+import bunker from "@/lib/bunker"
+import { get, set, del } from "idb-keyval"
 
 export function registerDefaultPlugins() {
   registerPlugin(Status)
@@ -59,7 +61,7 @@ export function registerDefaultPlugins() {
 export function removePlugin(id: string) {
   const plugin = $plugins.get().find((p) => p.id == id)
   if (!plugin) return
-  if (bunker.pluginLocation == 'internal') {
+  if (bunker.pluginLocation == "internal") {
     // @ts-ignore
     del(plugin.source)
   }
@@ -67,16 +69,16 @@ export function removePlugin(id: string) {
   const updated = $plugins.get().filter((p) => p.id !== id)
   $plugins.set(updated)
 
-  if ('source' in plugin) {
+  if ("source" in plugin) {
     store(
-      'savedPlugins',
-      (store('savedPlugins') as string[]).filter((s) => s !== plugin.source)
+      "savedPlugins",
+      (store("savedPlugins") as string[]).filter((s) => s !== plugin.source),
     )
   }
 }
 
 getSavedPlugins().forEach(async (url) => {
-  if (bunker.pluginLocation == 'internal') {
+  if (bunker.pluginLocation == "internal") {
     get(url).then(async (value: Blob | undefined) => {
       if (!value) return
       const path = URL.createObjectURL(value)
@@ -84,22 +86,21 @@ getSavedPlugins().forEach(async (url) => {
       const plugin = module.default as Plugin
       registerPlugin({
         ...plugin,
-        source: url
+        source: url,
       })
 
       console.log("Loaded plugin from storage.")
     })
   } else {
-  const loadedPlugin = await fetchExternalPlugin(url)
-  if (!loadedPlugin) return
-  registerPlugin({
-    ...loadedPlugin,
-    source: url
-  })
+    const loadedPlugin = await fetchExternalPlugin(url)
+    if (!loadedPlugin) return
+    registerPlugin({
+      ...loadedPlugin,
+      source: url,
+    })
 
-  console.log("Loaded plugin from URL")
-}
-  
+    console.log("Loaded plugin from URL")
+  }
 })
 
 export function registerPlugin(plugin: Plugin): Plugin | undefined | void {
@@ -108,7 +109,9 @@ export function registerPlugin(plugin: Plugin): Plugin | undefined | void {
   const plugins = $plugins.get()
 
   if (plugins.find((existingPlugin) => existingPlugin.id == plugin.id)) {
-    toast.error(`An error occured while registering ${plugin.id} - plugin identifier already registered.`)
+    toast.error(
+      `An error occured while registering ${plugin.id} - plugin identifier already registered.`,
+    )
     return
   }
 
@@ -119,27 +122,30 @@ export function registerPlugin(plugin: Plugin): Plugin | undefined | void {
   return plugin
 }
 
-export async function fetchExternalPlugin(url: string): Promise<Plugin | undefined> {
+export async function fetchExternalPlugin(
+  url: string,
+): Promise<Plugin | undefined> {
   const response = await fetch(url)
   const code = await response.text()
-  const blob = new Blob([code], { type: 'text/javascript' })
+  const blob = new Blob([code], { type: "text/javascript" })
   const path = URL.createObjectURL(blob)
-  if (bunker.pluginLocation == 'internal') {
-    set(url, blob);
+  if (bunker.pluginLocation == "internal") {
+    set(url, blob)
   }
-
 
   const module = await import(/* @vite-ignore */ path)
 
-  if (typeof module.default !== 'object' || !('name' in module.default)) {
+  if (typeof module.default !== "object" || !("name" in module.default)) {
     toast.error(`No valid plugin exists for ${url}`)
     return
   }
 
   const plugin = module.default as Plugin
 
-  if (plugin.id.startsWith('bunker.')) {
-    toast.error(`An error occured while fetching ${plugin.id} - external plugin identifier cannot be in the bunker namespace.`)
+  if (plugin.id.startsWith("bunker.")) {
+    toast.error(
+      `An error occured while fetching ${plugin.id} - external plugin identifier cannot be in the bunker namespace.`,
+    )
     return
   }
 

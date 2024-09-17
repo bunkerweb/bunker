@@ -193,7 +193,7 @@ const Updater: Plugin = {
       try {
         const response = await fetch(
           "https://raw.githubusercontent.com/bunkerweb/bunker/" +
-          // @ts-ignore
+            // @ts-ignore
             selectedBuild.sha +
             "/index.html",
         )
