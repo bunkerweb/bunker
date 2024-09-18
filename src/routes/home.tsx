@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { $plugins } from "@/lib/plugins"
+import { SDK } from "@/lib/sdk"
 import { useStore } from "@nanostores/react"
 
 export default function Home() {
@@ -18,7 +19,7 @@ export default function Home() {
                 <CardTitle>{plugin.name}</CardTitle>
               </CardHeader>
               <CardContent>
-                <plugin.tile />
+                <plugin.tile sdk={new SDK(plugin.id)} />
               </CardContent>
             </Card>
           )

@@ -2,7 +2,7 @@ import store from "store2"
 import { toast } from "sonner"
 import { atom } from "nanostores"
 import type { Plugin } from "./types"
-import { createSDK  } from "./sdk"
+import { SDK } from "./sdk"
 
 store.set("savedPlugins", [], false)
 store.set("disabledPlugins", [], false)
@@ -12,7 +12,7 @@ export const $plugins = atom<Plugin[]>([])
 export function readyEvent() {
   $plugins.get().forEach((plugin) => {
     if (!plugin.onReady) return
-    plugin.onReady(createSDK(plugin.id))
+    plugin.onReady({ sdk: new SDK(plugin.id) })
   })
 }
 
@@ -119,7 +119,7 @@ export function registerPlugin(plugin: Plugin): Plugin | undefined | void {
   $plugins.set([...$plugins.get(), plugin])
   console.log(plugin)
 
-  if (plugin.onReady) plugin.onReady(createSDK(plugin.id))
+  if (plugin.onReady) plugin.onReady({ sdk: new SDK(plugin.id) })
   return plugin
 }
 

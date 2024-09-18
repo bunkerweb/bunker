@@ -1,17 +1,16 @@
-import { atom } from "nanostores"
 import { $plugins } from "./plugins"
 
-interface Setting {
-  pluginId: string
-  id: string
-  name: string
-}
+// interface Setting {
+//   pluginId: string
+//   id: string
+//   name: string
+// }
 
-interface ExposedFunction {
-  pluginId: string
-  fnName: string
-  fn: Function
-}
+// interface ExposedFunction {
+//   pluginId: string
+//   fnName: string
+//   fn: Function
+// }
 
 export class SDK {
   private id: string
