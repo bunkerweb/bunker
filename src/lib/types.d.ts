@@ -35,13 +35,13 @@ export interface Plugin {
     Render a tile on the homescreen using a React component.
     Returned components will be displayed in the tile under the plugin's name.
   */
-  tile?: (sdk: SDK) => React.ReactNode
+  tile?: (props: { sdk: SDK }) => React.ReactNode
   
   /** Render a page to be accessed from the sidebar using a React component. */
-  page?: (sdk: SDK) => React.ReactNode
+  page?: (props: { sdk: SDK }) => React.ReactNode
 
   /** Event that fires when the plugin is first loaded. */
-  onReady?: (sdk: SDK) => void
+  onReady?: (props: { sdk: SDK }) => void
 }
 
 export interface StoreItem {

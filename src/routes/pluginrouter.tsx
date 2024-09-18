@@ -20,7 +20,7 @@ export default function PluginRouter() {
 
   return (
     <div className="h-screen w-[calc(100vw-4rem)] overflow-auto">
-      {selectedPlugin.page(createSDK(selectedPlugin.id))}
+      <selectedPlugin.page sdk={createSDK(selectedPlugin.id)} />
     </div>
   )
 }
