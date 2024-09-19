@@ -50,8 +50,9 @@ import Status from "@/internal/Status"
 import gba from "@/internal/GBA"
 import Updater from "@/internal/Updater"
 import bunker from "@/lib/bunker"
-import { get, set, del } from "idb-keyval"
+import { IDB } from "@/lib/idb"
 
+let db = IDB.create("plugins")
 export function registerDefaultPlugins() {
   registerPlugin(Status)
   registerPlugin(Viewer)
@@ -64,7 +65,7 @@ export function removePlugin(id: string) {
   if (!plugin) return
   if (bunker.pluginLocation == "internal") {
     // @ts-ignore
-    del(plugin.source)
+    IDB.store(db).del(plugin.source)
   }
 
   const updated = $plugins.get().filter((p) => p.id !== id)
@@ -80,7 +81,7 @@ export function removePlugin(id: string) {
 
 getSavedPlugins().forEach(async (url) => {
   if (bunker.pluginLocation == "internal") {
-    get(url).then(async (value: Blob | undefined) => {
+    IDB.store(db).get(url).then(async (value: Blob | undefined) => {
       if (!value) return
       const path = URL.createObjectURL(value)
       const module = await import(/* @vite-ignore */ path)
@@ -131,7 +132,7 @@ export async function fetchExternalPlugin(
   const blob = new Blob([code], { type: "text/javascript" })
   const path = URL.createObjectURL(blob)
   if (bunker.pluginLocation == "internal") {
-    set(url, blob)
+    IDB.store(db).set(url, blob)
   }
 
   const module = await import(/* @vite-ignore */ path)

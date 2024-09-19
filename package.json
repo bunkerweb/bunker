@@ -31,7 +31,6 @@
 		"clsx": "^2.1.1",
 		"events": "^3.3.0",
 		"idb": "^8.0.0",
-		"idb-keyval": "^6.2.1",
 		"lucide-react": "^0.298.0",
 		"million": "^2.6.4",
 		"nanostores": "^0.9.5",

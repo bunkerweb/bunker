@@ -16,7 +16,8 @@ const gba: Plugin = {
   description: "Run the GBA emulator",
   icon: Gamepad,
 
-  page() {
+  page({ sdk }) {
+    console.log(sdk.plugins.isInstalled("bunker.gba"));
     const fullScreen = () => {
       const iframe = document.getElementById("framey") as HTMLIFrameElement;
       iframe.requestFullscreen();
