@@ -49,6 +49,7 @@ import Viewer from "@/internal/Viewer"
 import Status from "@/internal/Status"
 import gba from "@/internal/GBA"
 import Updater from "@/internal/Updater"
+import Settings from "@/internal/Settings"
 import bunker from "@/lib/bunker"
 import { IDB } from "@/lib/idb"
 
@@ -58,6 +59,7 @@ export function registerDefaultPlugins() {
   registerPlugin(Viewer)
   registerPlugin(gba)
   registerPlugin(Updater)
+  registerPlugin(Settings)
 }
 
 export function removePlugin(id: string) {
