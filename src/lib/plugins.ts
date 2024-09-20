@@ -52,7 +52,7 @@ import Updater from "@/internal/Updater"
 import bunker from "@/lib/bunker"
 import { IDB } from "@/lib/idb"
 
-let db = IDB.create("plugins")
+let db = IDB.createKeyval("plugins")
 export function registerDefaultPlugins() {
   registerPlugin(Status)
   registerPlugin(Viewer)

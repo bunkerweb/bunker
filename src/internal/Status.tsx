@@ -1,4 +1,5 @@
 import { Plugin } from "@/lib/types"
+import bunker from "@/lib/bunker"
 
 import {
   Dialog,
@@ -43,7 +44,7 @@ const Status: Plugin = {
         </p>
         <p>
           Version:{" "}
-          <span className="text-orange-500 font-semibold">0.1 (dev)</span>
+          <span className="text-orange-500 font-semibold">{bunker.version} (dev)</span>
         </p>
 
         <Dialog open={changelogOpen} onOpenChange={setChangelogOpen}>

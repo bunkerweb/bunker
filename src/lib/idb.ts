@@ -1,11 +1,24 @@
 import { openDB } from 'idb';
 export class IDB {
-    public static create(name: string) {
+    public static createKeyval(name: string) {
         return openDB(name, 1, {
             upgrade(db) {
               db.createObjectStore('keyval');
             },
           });
+    }
+
+    public static createDB(name: string) {
+        return openDB(name, 1, {});
+    }
+
+    public static addObjectStore(db: any, storeName: string) {
+        const version = db.version + 1;
+        return openDB(db.name, version, {
+            upgrade(upgradedDb) {
+                upgradedDb.createObjectStore(storeName);
+            },
+        });
     }
 
     public static store = (store: any) => ({
