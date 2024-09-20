@@ -38,8 +38,10 @@ const Updater: Plugin = {
           checkIfUpToDate()
         }
       }
-
-      getLatestVersion()
+      if (bunker.autoUpdate === "true") {
+        console.log(bunker.autoUpdate)
+        getLatestVersion()
+      }
 
       async function checkIfUpToDate() {
         if (latestVersion == undefined) return

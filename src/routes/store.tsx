@@ -42,6 +42,7 @@ export default function Store() {
     <div className="flex flex-col items-center w-full pt-16 space-y-8">
       <h1 className="font-bold text-5xl">Store</h1>
 
+    <div className="flex flex-wrap justify-center gap-4">
       {!isLoading &&
         data!.plugins.map((plugin: StoreItem) => {
           return (
@@ -86,6 +87,7 @@ export default function Store() {
             </Card>
           )
         })}
+        </div>
     </div>
   )
 }
