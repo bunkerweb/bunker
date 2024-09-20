@@ -1,5 +1,5 @@
 import { SDK } from "./sdk"
-let version = "v0.2.3"
+let version = "v0.2.4"
 let pluginLocation = "internal"
 let Settings = new SDK("bunker.settings")
 

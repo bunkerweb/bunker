@@ -46,13 +46,32 @@ const Status: Plugin = {
           Version:{" "}
           <span className="text-orange-500 font-semibold">{bunker.version} (dev)</span>
         </p>
+        <p>
+          <button
+            onClick={() => setChangelogOpen(true)}
+            className="text-green-500 underline font-semibold"
+          >
+            Changelog
+          </button>
+        </p>
 
         <Dialog open={changelogOpen} onOpenChange={setChangelogOpen}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Changelog</DialogTitle>
+              <DialogTitle>v0.2.4</DialogTitle>
               <DialogDescription>
-                Bunker got a brand new update. You're going to love it.
+                What's new?
+                <br />
+                - Added changelog
+                <br />
+                - Added settings
+                <br />
+                - Added the ability to store plugins internally (unblockable)
+                <br />
+                - Added fullscreen to GBA + Viewer
+                <br />
+                - Added SDK! This is still a WIP, but soon you will see many more features which take advantage of it behind the scenes!
+                <br />
               </DialogDescription>
             </DialogHeader>
           </DialogContent>

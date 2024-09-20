@@ -51,13 +51,44 @@ const Updater: Plugin = {
             },
           })
         } else if (latestVersion !== undefined) {
-          setUpdateText(`Version ${latestVersion} is now available`)
-          toast("New update available [" + latestVersion + "]", {
-            action: {
-              label: "Install Now",
-              onClick: () => updateBunker(),
-            },
-          })
+          if (installedVersion) {
+            if (semver.gt(latestVersion, installedVersion)) {
+              if (semver.diff(latestVersion, installedVersion) == "major") {
+                toast("New update available [" + latestVersion + "]", {
+                  action: {
+                    label: "Install Now",
+                    onClick: () => updateBunker(),
+                  },
+                })
+                setUpdateText(`Version ${latestVersion} is now available`)
+                return;
+              } else if (semver.diff(latestVersion, installedVersion) == "minor") {
+                toast("New update available [" + latestVersion + "]", {
+                  action: {
+                    label: "Install Now",
+                    onClick: () => updateBunker(),
+                  },
+                })
+                setUpdateText(`Version ${latestVersion} is now available`)
+                return;
+              } else {
+                toast("New update available [" + latestVersion + "]", {
+                  action: {
+                    label: "Install Now",
+                    onClick: () => updateBunker(),
+                  },
+                })
+                setUpdateText(`Version ${latestVersion} is now available`)
+                return;
+              }
+            } else if (semver.eq(installedVersion, latestVersion)) {
+              toast("No update available")
+              return;
+            } else {
+              toast("No update available")
+              return;
+            }
+          }
         }
       }
 
