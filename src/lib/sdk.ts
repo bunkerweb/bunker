@@ -1,4 +1,5 @@
 import { $plugins } from "./plugins"
+import { toast } from "sonner"
 
 // interface Setting {
 //   pluginId: string
@@ -39,5 +40,21 @@ export class SDK {
       const plugins = $plugins.get()
       return plugins.some((plugin) => plugin.id === pluginId)
     },
+  }
+
+  public notification = {
+     push: (message: string, type: string) => {
+       if (this.config.get("notifications") === "false") return
+       console.log(`[${this.id}] Pushing notification: ${message}`)
+       if (type === "error") {
+         toast.error(message)
+       } else if (type === "success") {
+         toast.success(message)
+       } else if (type === "info") {
+         toast.info(message)
+       } else {
+         toast(message)
+       }
+     }
   }
 }

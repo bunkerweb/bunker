@@ -10,6 +10,7 @@ import { useEffect } from "react"
 import { registerDefaultPlugins } from "./lib/plugins"
 import PluginRouter from "./routes/pluginrouter"
 import { createRoot } from "react-dom/client"
+import bunker from "./lib/bunker"
 
 import "./styles.css"
 
@@ -24,7 +25,7 @@ export default function App() {
     <div className="flex bg-zinc-900">
       <HashRouter>
         <Navbar />
-        <Toaster position="top-right" />
+        {bunker.notifications === "false" && <Toaster position="top-right" />}
         <div className="w-[calc(100vw-4rem)] absolute right-0 top-0 h-screen">
           <Routes>
             <Route element={<Home />} path="/" />

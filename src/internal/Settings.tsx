@@ -14,6 +14,8 @@ const Settings: Plugin = {
   page({ sdk }) {
     const [pluginLocation, setPluginLocation] = useState(sdk.config.get("storageLocation"));
     const [autoUpdate, setAutoUpdate] = useState(sdk.config.get("autoUpdate") === "true");
+    const [notifications, setNotifications] = useState(sdk.config.get("notifications") === "true");
+    const [pluginNotifs, setPluginNotifs] = useState(sdk.config.get("pluginNotifs") === "true");
     function setStorageLocation(checked: boolean) {
       if (checked) {
         sdk.config.set("storageLocation", "internal")
@@ -34,6 +36,27 @@ const Settings: Plugin = {
       }
     }
 
+    function notificationSet(checked: boolean) {
+      if (checked) {
+        sdk.config.set("notifications", "true")
+        setNotifications(true);
+      } else {
+        sdk.config.set("notifications", "false")
+        setNotifications(false);
+      }
+    }
+
+    function pluginNotifSet(checked: boolean) {
+      if (checked) {
+        sdk.config.set("pluginNotifs", "true")
+        setPluginNotifs(true);
+      } else {
+        sdk.config.set("pluginNotifs", "false")
+        setPluginNotifs(false);
+      }
+    }
+
+
     return (
         <div className="flex flex-col items-center w-full pt-16">
             <h1 className="font-bold text-5xl">Settings </h1>
@@ -45,6 +68,14 @@ const Settings: Plugin = {
             <div className="flex flex-row items-center gap-4 mt-2">
                 <Switch id="auto-update" checked={autoUpdate} onCheckedChange={(checked) => autoUpdateSet(checked)} />
                 <Label className="text-md" htmlFor="auto-update">Auto Update</Label>
+            </div>
+            <div className="flex flex-row items-center gap-4 mt-2">
+                <Switch id="notifications" checked={notifications} onCheckedChange={(checked) => notificationSet(checked)} />
+                <Label className="text-md" htmlFor="notifications">Disable All Notifications</Label>
+            </div>
+            <div className="flex flex-row items-center gap-4 mt-2">
+                <Switch id="pluginNotif" checked={pluginNotifs} onCheckedChange={(checked) => pluginNotifSet(checked)} />
+                <Label className="text-md" htmlFor="pluginNotif">Disable Notifications from Plugins</Label>
             </div>
             </div>
         </div>
