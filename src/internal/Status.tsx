@@ -60,7 +60,17 @@ const Status: Plugin = {
         <Dialog open={changelogOpen} onOpenChange={setChangelogOpen}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>v0.2.4</DialogTitle>
+            <DialogTitle>v0.2.5</DialogTitle>
+              <DialogDescription>
+                What's new?
+                <br />- Auto Update Toggle
+                <br />- 2 Notification Settings
+                <br />- Tab Cloak Settings
+                <br />- Added ability to change Tab Settings via SDK.
+                <br />- Added notification support to SDK
+                <br />
+              </DialogDescription>
+              {/* <DialogTitle>v0.2.4</DialogTitle>
               <DialogDescription>
                 What's new?
                 <br />- Added changelog
@@ -71,7 +81,7 @@ const Status: Plugin = {
                 <br />- Added SDK! This is still a WIP, but soon you will see
                 many more features which take advantage of it behind the scenes!
                 <br />
-              </DialogDescription>
+              </DialogDescription> */}
             </DialogHeader>
           </DialogContent>
         </Dialog>

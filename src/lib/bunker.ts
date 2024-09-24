@@ -1,5 +1,5 @@
 import { SDK } from "./sdk"
-let version: string = "v0.2.4"
+let version: string = "v0.2.5"
 let pluginLocation: string = "internal"
 let autoUpdate: string = "true"
 let notifications: string = "false" // True = disable all notifications, false = enable all
