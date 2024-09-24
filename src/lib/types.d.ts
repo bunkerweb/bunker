@@ -36,7 +36,7 @@ export interface Plugin {
     Returned components will be displayed in the tile under the plugin's name.
   */
   tile?: (props: { sdk: SDK }) => React.ReactNode
-  
+
   /** Render a page to be accessed from the sidebar using a React component. */
   page?: (props: { sdk: SDK }) => React.ReactNode
 

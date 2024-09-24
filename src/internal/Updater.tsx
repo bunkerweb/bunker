@@ -63,8 +63,10 @@ const Updater: Plugin = {
                   },
                 })
                 setUpdateText(`Version ${latestVersion} is now available`)
-                return;
-              } else if (semver.diff(latestVersion, installedVersion) == "minor") {
+                return
+              } else if (
+                semver.diff(latestVersion, installedVersion) == "minor"
+              ) {
                 toast("New update available [" + latestVersion + "]", {
                   action: {
                     label: "Install Now",
@@ -72,7 +74,7 @@ const Updater: Plugin = {
                   },
                 })
                 setUpdateText(`Version ${latestVersion} is now available`)
-                return;
+                return
               } else {
                 toast("New update available [" + latestVersion + "]", {
                   action: {
@@ -81,14 +83,14 @@ const Updater: Plugin = {
                   },
                 })
                 setUpdateText(`Version ${latestVersion} is now available`)
-                return;
+                return
               }
             } else if (semver.eq(installedVersion, latestVersion)) {
               toast("No update available")
-              return;
+              return
             } else {
               toast("No update available")
-              return;
+              return
             }
           }
         }

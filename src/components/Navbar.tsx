@@ -99,14 +99,14 @@ export default function Navbar() {
           </Tooltip> */}
           <Tooltip delayDuration={0}>
             <TooltipTrigger asChild>
-            <div
+              <div
                 onClick={() => {
                   navigate(`/settings`)
                 }}
                 className="font-bold hover:bg-zinc-700 transition-colors duration-150 aspect-square flex items-center justify-center cursor-pointer group"
               >
                 <Settings className="group-active:scale-90 transition-all duration-300" />
-            </div>
+              </div>
             </TooltipTrigger>
             <TooltipContent side="right">
               <p>Settings</p>

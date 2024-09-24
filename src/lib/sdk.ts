@@ -28,7 +28,9 @@ export class SDK {
       }
     },
     set: (key: string, value: string) => {
-      console.log(`[${this.id}] Setting config value for key ${key} to ${value}`)
+      console.log(
+        `[${this.id}] Setting config value for key ${key} to ${value}`,
+      )
       localStorage.setItem(`${this.id}.${key}`, value)
       return value
     },
@@ -43,18 +45,18 @@ export class SDK {
   }
 
   public notification = {
-     push: (message: string, type: string) => {
-       if (this.config.get("notifications") === "false") return
-       console.log(`[${this.id}] Pushing notification: ${message}`)
-       if (type === "error") {
-         toast.error(message)
-       } else if (type === "success") {
-         toast.success(message)
-       } else if (type === "info") {
-         toast.info(message)
-       } else {
-         toast(message)
-       }
-     }
+    push: (message: string, type: string) => {
+      if (this.config.get("notifications") === "false") return
+      console.log(`[${this.id}] Pushing notification: ${message}`)
+      if (type === "error") {
+        toast.error(message)
+      } else if (type === "success") {
+        toast.success(message)
+      } else if (type === "info") {
+        toast.info(message)
+      } else {
+        toast(message)
+      }
+    },
   }
 }

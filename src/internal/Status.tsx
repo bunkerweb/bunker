@@ -44,7 +44,9 @@ const Status: Plugin = {
         </p>
         <p>
           Version:{" "}
-          <span className="text-orange-500 font-semibold">{bunker.version} (dev)</span>
+          <span className="text-orange-500 font-semibold">
+            {bunker.version} (dev)
+          </span>
         </p>
         <p>
           <button
@@ -61,16 +63,13 @@ const Status: Plugin = {
               <DialogTitle>v0.2.4</DialogTitle>
               <DialogDescription>
                 What's new?
-                <br />
-                - Added changelog
-                <br />
-                - Added settings
-                <br />
-                - Added the ability to store plugins internally (unblockable)
-                <br />
-                - Added fullscreen to GBA + Viewer
-                <br />
-                - Added SDK! This is still a WIP, but soon you will see many more features which take advantage of it behind the scenes!
+                <br />- Added changelog
+                <br />- Added settings
+                <br />- Added the ability to store plugins internally
+                (unblockable)
+                <br />- Added fullscreen to GBA + Viewer
+                <br />- Added SDK! This is still a WIP, but soon you will see
+                many more features which take advantage of it behind the scenes!
                 <br />
               </DialogDescription>
             </DialogHeader>

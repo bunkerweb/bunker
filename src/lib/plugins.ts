@@ -83,18 +83,20 @@ export function removePlugin(id: string) {
 
 getSavedPlugins().forEach(async (url) => {
   if (bunker.pluginLocation == "internal") {
-    IDB.store(db).get(url).then(async (value: Blob | undefined) => {
-      if (!value) return
-      const path = URL.createObjectURL(value)
-      const module = await import(/* @vite-ignore */ path)
-      const plugin = module.default as Plugin
-      registerPlugin({
-        ...plugin,
-        source: url,
-      })
+    IDB.store(db)
+      .get(url)
+      .then(async (value: Blob | undefined) => {
+        if (!value) return
+        const path = URL.createObjectURL(value)
+        const module = await import(/* @vite-ignore */ path)
+        const plugin = module.default as Plugin
+        registerPlugin({
+          ...plugin,
+          source: url,
+        })
 
-      console.log("Loaded plugin from storage.")
-    })
+        console.log("Loaded plugin from storage.")
+      })
   } else {
     const loadedPlugin = await fetchExternalPlugin(url)
     if (!loadedPlugin) return

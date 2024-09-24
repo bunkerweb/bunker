@@ -4,28 +4,29 @@ let pluginLocation: string = "internal"
 let autoUpdate: string = "true"
 let notifications: string = "false" // True = disable all notifications, false = enable all
 let pluginNotifs: string = "true" // True = enabled plugin notifications, false = disabled plugin notifications
-
+let title: string = "Bunker"
 
 let Settings = new SDK("bunker.settings")
 
-
 pluginLocation = Settings.config.get("storageLocation") || pluginLocation
 // @ts-ignore
-autoUpdate = Settings.config.get("autoUpdate") || autoUpdate;
+autoUpdate = Settings.config.get("autoUpdate") || autoUpdate
 
 // @ts-ignore
-notifications = Settings.config.get("notifications") || notifications;
+notifications = Settings.config.get("notifications") || notifications
 
 // @ts-ignore
-pluginNotifs = Settings.config.get("pluginNotifs") || pluginNotifs;
+pluginNotifs = Settings.config.get("pluginNotifs") || pluginNotifs
+
+// @ts-ignore
+title = Settings.config.get("title") || title
 
 const bunker = {
   version,
   pluginLocation,
   autoUpdate,
   notifications,
-  pluginNotifs
+  pluginNotifs,
+  title,
 }
 export default bunker
-
-

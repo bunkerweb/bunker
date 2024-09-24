@@ -1,14 +1,14 @@
-import { Plugin } from "@/lib/types";
-import { Gamepad } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Maximize2 } from "lucide-react";
+import { Plugin } from "@/lib/types"
+import { Gamepad } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Maximize2 } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useState } from "react";
+} from "@/components/ui/dropdown-menu"
+import { useState } from "react"
 
 const gba: Plugin = {
   name: "GBA",
@@ -17,13 +17,13 @@ const gba: Plugin = {
   icon: Gamepad,
 
   page({ sdk }) {
-    console.log(sdk.plugins.isInstalled("bunker.gba"));
+    console.log(sdk.plugins.isInstalled("bunker.gba"))
     const fullScreen = () => {
-      const iframe = document.getElementById("framey") as HTMLIFrameElement;
-      iframe.requestFullscreen();
-    };
+      const iframe = document.getElementById("framey") as HTMLIFrameElement
+      iframe.requestFullscreen()
+    }
 
-    const [url, setUrl] = useState("https://ilovemath.pics/");
+    const [url, setUrl] = useState("https://ilovemath.pics/")
     return (
       <div className="flex flex-col items-center justify-center w-full h-full mt-2">
         <div className="w-[92%] h-[92%]">
@@ -45,14 +45,14 @@ const gba: Plugin = {
             <DropdownMenuContent>
               <DropdownMenuItem
                 onClick={() => {
-                  setUrl("https://mathstudy.dev/gba");
+                  setUrl("https://mathstudy.dev/gba")
                 }}
               >
                 2.0
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => {
-                  setUrl("https://ilovemath.pics/");
+                  setUrl("https://ilovemath.pics/")
                 }}
               >
                 3.0
@@ -61,8 +61,8 @@ const gba: Plugin = {
           </DropdownMenu>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
-export default gba;
+export default gba

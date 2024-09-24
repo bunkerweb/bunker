@@ -21,6 +21,10 @@ export default function App() {
     registerDefaultPlugins()
   }, [])
 
+  useEffect(() => {
+    document.title = bunker.title
+  }, [])
+
   return (
     <div className="flex bg-zinc-900">
       <HashRouter>

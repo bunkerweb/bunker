@@ -14,7 +14,7 @@ import store from "store2"
 import useSWR from "swr"
 
 export default function Store() {
-  const { data, isLoading } = useSWR(
+  const { data, error, isLoading } = useSWR(
     "https://raw.githubusercontent.com/bunkerweb/store/main/data.json",
     (url) => fetch(url).then((r) => r.json()),
   )
@@ -42,52 +42,59 @@ export default function Store() {
     <div className="flex flex-col items-center w-full pt-16 space-y-8">
       <h1 className="font-bold text-5xl">Store</h1>
 
-    <div className="flex flex-wrap justify-center gap-4">
-      {!isLoading &&
-        data!.plugins.map((plugin: StoreItem) => {
-          return (
-            <Card className="w-80" key={plugin.id}>
-              <CardHeader>
-                <CardTitle>{plugin.name}</CardTitle>
-                <div className="flex">
-                  <CardDescription className="font-mono font-normal text-sm">
-                    {plugin.id}
-                  </CardDescription>
-                  <CardDescription className="font-mono ml-1 font-normal text-sm">
-                    · {plugin.version}
-                  </CardDescription>
-                </div>
-              </CardHeader>
-
-              <CardContent className="space-y-4">
-                <div>{plugin.description}</div>
-
-                {installedPlugins.includes(plugin.id) ? (
-                  <Button disabled>Installed</Button>
-                ) : (
-                  <Button
-                    onClick={async () => {
-                      const data = await fetchExternalPlugin(plugin.url)
-                      if (!data) return
-
-                      registerPlugin({
-                        ...data,
-                        source: plugin.url,
-                      })
-                      store("savedPlugins", [
-                        ...store("savedPlugins"),
-                        plugin.url,
-                      ])
-                    }}
-                  >
-                    Install
-                  </Button>
-                )}
-              </CardContent>
-            </Card>
-          )
-        })}
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : error ? (
+        <div className="text-center">
+          Connection to Store lost (Is it blocked?). Try Refreshing.
         </div>
+      ) : (
+        <div className="flex flex-wrap justify-center gap-4">
+          {data!.plugins.map((plugin: StoreItem) => {
+            return (
+              <Card className="w-80" key={plugin.id}>
+                <CardHeader>
+                  <CardTitle>{plugin.name}</CardTitle>
+                  <div className="flex">
+                    <CardDescription className="font-mono font-normal text-sm">
+                      {plugin.id}
+                    </CardDescription>
+                    <CardDescription className="font-mono ml-1 font-normal text-sm">
+                      · {plugin.version}
+                    </CardDescription>
+                  </div>
+                </CardHeader>
+
+                <CardContent className="space-y-4">
+                  <div>{plugin.description}</div>
+
+                  {installedPlugins.includes(plugin.id) ? (
+                    <Button disabled>Installed</Button>
+                  ) : (
+                    <Button
+                      onClick={async () => {
+                        const data = await fetchExternalPlugin(plugin.url)
+                        if (!data) return
+
+                        registerPlugin({
+                          ...data,
+                          source: plugin.url,
+                        })
+                        store("savedPlugins", [
+                          ...store("savedPlugins"),
+                          plugin.url,
+                        ])
+                      }}
+                    >
+                      Install
+                    </Button>
+                  )}
+                </CardContent>
+              </Card>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 }

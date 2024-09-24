@@ -53,7 +53,7 @@ const Viewer: Plugin = {
     )
   },
   page({ sdk }) {
-    console.log(sdk.plugins.isInstalled("bunker.gba"));
+    console.log(sdk.plugins.isInstalled("bunker.gba"))
     const [url, setUrl] = useState("")
     const [iframeVisable, setIframeVisable] = useState(false)
 
