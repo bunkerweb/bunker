@@ -67,7 +67,7 @@ export function removePlugin(id: string) {
   if (!plugin) return
   if (bunker.pluginLocation == "internal") {
     // @ts-ignore
-    IDB.store(db).del(plugin.source)
+    IDB.keyval(db).del(plugin.source)
   }
 
   const updated = $plugins.get().filter((p) => p.id !== id)
@@ -83,7 +83,7 @@ export function removePlugin(id: string) {
 
 getSavedPlugins().forEach(async (url) => {
   if (bunker.pluginLocation == "internal") {
-    IDB.store(db)
+    IDB.keyval(db)
       .get(url)
       .then(async (value: Blob | undefined) => {
         if (!value) return
@@ -136,7 +136,7 @@ export async function fetchExternalPlugin(
   const blob = new Blob([code], { type: "text/javascript" })
   const path = URL.createObjectURL(blob)
   if (bunker.pluginLocation == "internal") {
-    IDB.store(db).set(url, blob)
+    IDB.keyval(db).set(url, blob)
   }
 
   const module = await import(/* @vite-ignore */ path)

@@ -72,7 +72,7 @@ export class SDK {
     get: (key: string) => {
       let store = IDB.openDB(this.id)
       console.log(`[${this.id}] Getting db value for key ${key}`);
-      const value = IDB.store(store).get(key).then((value) => {
+      const value = IDB.keyval(store).get(key).then((value) => {
         console.log(`[${this.id}] Got db value for key ${key}: ${value}`);
       })
       return value
@@ -80,7 +80,7 @@ export class SDK {
     set: (key: string, value: string) => {
       let store = IDB.openDB(this.id)
       console.log(`[${this.id}] Setting db value for key ${key} to ${value}`);
-      IDB.store(store).set(key, value).then(() => {
+      IDB.keyval(store).set(key, value).then(() => {
         console.log(`[${this.id}] Set db value for key ${key} to ${value}`);
       })
       return value

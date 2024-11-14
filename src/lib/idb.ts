@@ -25,7 +25,7 @@ export class IDB {
     })
   }
 
-  public static store = (store: any) => ({
+  public static keyval = (store: any) => ({
     get: async (key: string) => {
       return (await store).get("keyval", key)
     },
@@ -46,4 +46,26 @@ export class IDB {
       return (await store).getAllKeys("keyval")
     },
   })
+
+  public static store = (store: any, object: string) => ({
+    get: async (key: string) => {
+      return (await store).get(object, key)
+    },
+    set: async (key: string, value: any) => {
+      return (await store).put(object, key, value)
+    },
+
+    del: async (key: string) => {
+      return (await store).delete(object, key)
+    },
+
+    clear: async () => {
+      return (await store).clear(object)
+    },
+
+    keys: async () => {
+      return (await store).getAllKeys(object)
+    },
+  })
+
 }
