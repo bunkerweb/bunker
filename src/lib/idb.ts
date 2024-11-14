@@ -12,6 +12,10 @@ export class IDB {
     return openDB(name, 1, {})
   }
 
+  public static openDB(name: string) {
+    return openDB(name)
+  }
+
   public static addObjectStore(db: any, storeName: string) {
     const version = db.version + 1
     return openDB(db.name, version, {
