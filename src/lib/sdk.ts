@@ -65,7 +65,7 @@ export class SDK {
 
     // todo future: Store DB somewhere, no need to reference store every time, can just use .get(key)
     create: () => {
-      let db = IDB.createDB(this.id)
+      let db = IDB.createKeyval(this.id)
       return db
     },
 
